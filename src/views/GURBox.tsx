@@ -180,6 +180,37 @@ const gur6 = () => (
 	</Box>
 );
 
+const gur7 = () => (
+	<Box width={40} height={7} flexDirection="column">
+		<Text color={"black"}>
+			<Text>{"                                "}</Text>
+			<Text backgroundColor={white}>{" ╭─╮╭─╮ "}</Text>
+		</Text>
+		<Text color={"black"}>
+			<Text backgroundColor={red}>{" ╭──────╮ "}</Text>
+			<Text backgroundColor={green}>{" ╭──╮  ╭──╮ "}</Text>
+			<Text backgroundColor={blue}>{" ╭───────╮"}</Text>
+			<Text backgroundColor={white}>{" │ │╰─╮ "}</Text>
+		</Text>
+		<Text color={"black"}>
+			<Text backgroundColor={red}>{" │  ╭───┤ "}</Text>
+			<Text backgroundColor={green}>{" │  │  │  │ "}</Text>
+			<Text backgroundColor={blue}>{" │  ───  │"}</Text>
+			<Text backgroundColor={white}>{" ╰─╯╰─╯ "}</Text>
+		</Text>
+		<Text color={"black"}>
+			<Text backgroundColor={red}>{" │  ╰─  │ "}</Text>
+			<Text backgroundColor={green}>{" │  ╰──╯  │ "}</Text>
+			<Text backgroundColor={blue}>{" │ ╭─╮ ╭─╯ "}</Text>
+		</Text>
+		<Text color={"black"}>
+			<Text backgroundColor={red}>{" ╰──────╯ "}</Text>
+			<Text backgroundColor={green}>{" ╰────────╯ "}</Text>
+			<Text backgroundColor={blue}>{" ╰─╯ ╰─╯   "}</Text>
+		</Text>
+	</Box>
+);
+
 export const Gur = () => {
 	//Random gur
 	//const gur = Math.floor(Math.random() * 3);
@@ -193,6 +224,7 @@ export const Gur = () => {
 			{gur === 3 && gur4()}
 			{gur === 4 && gur5()}
 			{gur === 5 && gur6()}
+			{gur === 6 && gur7()}
 		</Box>
 	);
 };

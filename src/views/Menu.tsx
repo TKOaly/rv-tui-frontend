@@ -23,8 +23,13 @@ const Menu = () => {
 
 	return (
 		<BorderBox flexDirection="column" paddingX={1}>
-			{Object.keys(commands).map(command => (
-				<Box flexDirection="row" justifyContent="space-between" gap={1}>
+			{Object.keys(commands).map((command, idx) => (
+				<Box
+					flexDirection="row"
+					justifyContent="space-between"
+					gap={1}
+					key={idx}
+				>
 					<Text>{command}</Text>
 					<Text color={styles.accentColor}>{">"}</Text>
 				</Box>

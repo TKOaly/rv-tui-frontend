@@ -19,11 +19,11 @@ const App = () => {
 	//const width = unsafeWidth - 1;
 
 	// Fullscreen
-	//const [width, height] = process.stdout.getWindowSize();
+	const [width, height] = process.stdout.getWindowSize();
 
 	// Dimensions of current RV-terminal
-	const width = 100;
-	const height = 28;
+	//const width = 100;
+	//const height = 28;
 
 	return (
 		<Box flexDirection="column" width={width} height={height}>
