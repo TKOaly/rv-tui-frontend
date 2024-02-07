@@ -1,6 +1,7 @@
 import { Box, Text, useApp } from "ink";
 import { useSetAtom } from "jotai";
 import EANToUnicode from "./lib/barcodes.js";
+//import useDimensions from "./lib/dimensions.js";
 import { useStyles, utilsAtom } from "./lib/state.js";
 import GurBox from "./views/GURBox.js";
 import Menu from "./views/Menu.js";
@@ -12,10 +13,20 @@ const App = () => {
 	const setUtils = useSetAtom(utilsAtom);
 	setUtils({ exit });
 
+	// Can be used to make dimensions dynamic
+	// True width causes wrapping when resizing width down
+	//const { width: unsafeWidth, height } = useDimensions();
+	//const width = unsafeWidth - 1;
+
+	// Fullscreen
+	//const [width, height] = process.stdout.getWindowSize();
+
 	// Dimensions of current RV-terminal
-	// height={28} width={100}
+	const width = 100;
+	const height = 28;
+
 	return (
-		<Box flexDirection="column" height={28} width={"100%"}>
+		<Box flexDirection="column" width={width} height={height}>
 			<Box flexDirection="row" height={"100%"}>
 				<Menu />
 				<GurBox />
@@ -26,7 +37,7 @@ const App = () => {
 				borderColor={styles.borderColor}
 				height={3}
 			>
-				<Text color={"white"}>{EANToUnicode(8711253001202, 2)}</Text>
+				<Text color={"white"}>{EANToUnicode(8711253001202)}</Text>
 			</Box>
 		</Box>
 	);
