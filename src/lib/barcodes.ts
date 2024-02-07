@@ -66,7 +66,7 @@ const errorString = "▌▌ BARCODE ▐▐▐ BARCODE ▐▐";
  * @returns String
  * @link https://en.wikipedia.org/wiki/International_Article_Number#Binary_encoding_of_data_digits_into_EAN-13_barcode
  */
-const convert = (barcode: number) => {
+const convert = (barcode: number, scale: 1 | 2) => {
 	const length = barcode.toString().length;
 	if (length !== 13 && length !== 8) {
 		return errorString;
@@ -90,9 +90,15 @@ const convert = (barcode: number) => {
 	const fullBinary =
 		"101" + leftGroup.join("") + "01010" + rightGroup.join("") + "101";
 
-	const binaryPairs = fullBinary.split(/(?=(?:..)*.$)/);
-
-	return binaryPairs.map(pair => pairStrings[pair]).join("");
+	if (scale === 1) {
+		const binaryPairs = fullBinary.split(/(?=(?:..)*.$)/);
+		return binaryPairs.map(pair => pairStrings[pair]).join("");
+	} else {
+		return fullBinary
+			.split("")
+			.map(bit => (bit === "1" ? "█" : " "))
+			.join("");
+	}
 };
 
 /**
@@ -100,9 +106,9 @@ const convert = (barcode: number) => {
  * @param barcode EAN-13 or EAN-8 barcode number
  * @returns String
  */
-const EANToUnicode = (barcode: number) => {
+const EANToUnicode = (barcode: number, scale: 1 | 2 = 1) => {
 	try {
-		return convert(barcode);
+		return convert(barcode, scale);
 	} catch (_e) {
 		return errorString;
 	}

@@ -15,7 +15,7 @@ const App = () => {
 	// Dimensions of current RV-terminal
 	// height={28} width={100}
 	return (
-		<Box flexDirection="column" height={28} width={100}>
+		<Box flexDirection="column" height={28} width={"100%"}>
 			<Box flexDirection="row" height={"100%"}>
 				<Menu />
 				<GurBox />
@@ -26,7 +26,7 @@ const App = () => {
 				borderColor={styles.borderColor}
 				height={3}
 			>
-				<Text color={"white"}>{EANToUnicode(8711253001202)}</Text>
+				<Text color={"white"}>{EANToUnicode(8711253001202, 2)}</Text>
 			</Box>
 		</Box>
 	);

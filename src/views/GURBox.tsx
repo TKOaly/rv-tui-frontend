@@ -68,7 +68,7 @@ const gur2 = () => (
 const gur3 = () => (
 	<Box width={31} height={7} flexDirection="column">
 		<Text>
-			<Text color={white}>{"                         ┌─┐┌─╴"}</Text>
+			<Text color={white}>{"                         ┌─┐┌─┐"}</Text>
 		</Text>
 		<Text>
 			<Text color={red}>{"┌──────┬"}</Text>
@@ -80,7 +80,7 @@ const gur3 = () => (
 			<Text color={red}>{"│  ┌───┤"}</Text>
 			<Text color={green}>{"  │  │  │"}</Text>
 			<Text color={blue}>{"  ───  │"}</Text>
-			<Text color={white}>{"└─┘╶─┘"}</Text>
+			<Text color={white}>{"└─┘└─┘"}</Text>
 		</Text>
 		<Text>
 			<Text color={red}>{"│  └─  │"}</Text>
@@ -120,10 +120,70 @@ const gur4 = () => (
 	</Box>
 );
 
+const gur5 = () => (
+	<Box width={31} height={7} flexDirection="column">
+		<Text>
+			<Text color={white}>{"                         ╭─╮╭─╮"}</Text>
+		</Text>
+		<Text>
+			<Text color={red}>{"╭──────┬"}</Text>
+			<Text color={green}>{"──╮  ╭──┬"}</Text>
+			<Text color={blue}>{"───────╮"}</Text>
+			<Text color={white}>{"│ │╰─╮"}</Text>
+		</Text>
+		<Text>
+			<Text color={red}>{"│  ╭───┤"}</Text>
+			<Text color={green}>{"  │  │  │"}</Text>
+			<Text color={blue}>{"  ───  │"}</Text>
+			<Text color={white}>{"╰─╯╰─╯"}</Text>
+		</Text>
+		<Text>
+			<Text color={red}>{"│  ╰─  │"}</Text>
+			<Text color={green}>{"  ╰──╯  │"}</Text>
+			<Text color={blue}>{" ╭─╮ ╭─╯"}</Text>
+		</Text>
+		<Text>
+			<Text color={red}>{"╰──────┴"}</Text>
+			<Text color={green}>{"────────┴"}</Text>
+			<Text color={blue}>{"─╯ ╰─╯"}</Text>
+		</Text>
+	</Box>
+);
+
+const gur6 = () => (
+	<Box width={33} height={7} flexDirection="column">
+		<Text>
+			<Text color={white}>{"                           ╭─╮╭─╮"}</Text>
+		</Text>
+		<Text>
+			<Text color={red}>{"╭──────╮"}</Text>
+			<Text color={green}>{"╭──╮  ╭──╮"}</Text>
+			<Text color={blue}>{"╭───────╮"}</Text>
+			<Text color={white}>{"│ │╰─╮"}</Text>
+		</Text>
+		<Text>
+			<Text color={red}>{"│  ╭───┤"}</Text>
+			<Text color={green}>{"│  │  │  │"}</Text>
+			<Text color={blue}>{"│  ───  │"}</Text>
+			<Text color={white}>{"╰─╯╰─╯"}</Text>
+		</Text>
+		<Text>
+			<Text color={red}>{"│  ╰─  │"}</Text>
+			<Text color={green}>{"│  ╰──╯  │"}</Text>
+			<Text color={blue}>{"│ ╭─╮ ╭─╯"}</Text>
+		</Text>
+		<Text>
+			<Text color={red}>{"╰──────╯"}</Text>
+			<Text color={green}>{"╰────────╯"}</Text>
+			<Text color={blue}>{"╰─╯ ╰─╯"}</Text>
+		</Text>
+	</Box>
+);
+
 export const Gur = () => {
 	//Random gur
 	//const gur = Math.floor(Math.random() * 3);
-	const gur: number = 2;
+	const gur: number = 5;
 
 	return (
 		<Box marginRight={1}>
@@ -131,6 +191,8 @@ export const Gur = () => {
 			{gur === 1 && gur2()}
 			{gur === 2 && gur3()}
 			{gur === 3 && gur4()}
+			{gur === 4 && gur5()}
+			{gur === 5 && gur6()}
 		</Box>
 	);
 };
