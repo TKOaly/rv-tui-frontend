@@ -1,5 +1,6 @@
 import { Box, Text, useApp } from "ink";
 import { useSetAtom } from "jotai";
+import EANToUnicode from "./lib/barcodes.js";
 import { useStyles, utilsAtom } from "./lib/state.js";
 import GurBox from "./views/GURBox.js";
 import Menu from "./views/Menu.js";
@@ -25,7 +26,7 @@ const App = () => {
 				borderColor={styles.borderColor}
 				height={3}
 			>
-				<Text color={"white"}>BARCODE</Text>
+				<Text color={"white"}>{EANToUnicode(8711253001202)}</Text>
 			</Box>
 		</Box>
 	);
