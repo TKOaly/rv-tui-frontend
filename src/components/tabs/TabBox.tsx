@@ -1,6 +1,6 @@
 import type { DOMElement } from "ink";
-import { Box, Text, measureElement } from "ink";
-import { useEffect, useRef, useState } from "react";
+import { Box, Text } from "ink";
+import { useMeasurements } from "../../lib/dimensions.js";
 import { useStyles } from "../../lib/style.js";
 import BorderBox from "../BorderBox.js";
 import LayoutBox from "../LayoutBox.js";
@@ -9,24 +9,29 @@ type HeaderProps = {
 	title: string;
 	padding?: number;
 	width?: number;
-	position?: number;
+	headerPosition?: number;
 	middle?: boolean;
-};
+} & React.ComponentProps<typeof LayoutBox>;
 
 export const TabHeader = ({
 	title,
 	padding = 1,
 	width = 0,
-	position: desiredPosition = 0,
+	headerPosition = 0,
+	display = "flex",
 	middle = true
 }: HeaderProps) => {
 	const headerWidth = title.length + padding * 2 + 2;
 	const position = middle
 		? Math.floor(width / 2 - headerWidth / 2)
-		: desiredPosition;
+		: headerPosition;
 
 	return (
-		<LayoutBox width={Math.max(headerWidth, width)} flexDirection="column">
+		<LayoutBox
+			display={display}
+			width={Math.max(headerWidth, width)}
+			flexDirection="column"
+		>
 			<LayoutBox flexDirection="row">
 				<Box
 					height={1}
@@ -75,38 +80,35 @@ type TabBoxProps = {
 	headerPosition?: number;
 	children?: React.ReactNode | React.ReactNode[];
 	ref?: React.Ref<DOMElement>;
-} & React.ComponentProps<typeof BorderBox>;
+} & React.ComponentProps<typeof Box>;
 
 export const TabBox = ({
 	title,
 	headerCentered = false,
 	headerPosition = 0,
 	children,
+	display = "flex",
 	...rest
 }: TabBoxProps) => {
 	const styles = useStyles();
-	const ref = useRef<DOMElement>(null);
-	const [width, setWidth] = useState(0);
 
-	useEffect(() => {
-		if (ref.current) {
-			setWidth(measureElement(ref.current).width);
-		}
-	}, [ref.current, children]);
+	const { ref, width } = useMeasurements();
 
 	return (
 		<LayoutBox align="left" flexDirection="column">
 			<TabHeader
 				title={title}
 				width={width}
-				position={headerPosition}
+				headerPosition={headerPosition}
 				middle={headerCentered}
+				display={display}
 			/>
 			<Box
 				ref={ref}
 				borderTop={false}
 				borderStyle={styles.borderStyle}
 				borderColor={styles.borderColor}
+				display={display}
 				{...rest}
 			>
 				{children}

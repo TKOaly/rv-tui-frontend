@@ -1,5 +1,8 @@
-import { Box, Text } from "ink";
-import BorderBox from "../components/BorderBox.js";
+import { Select } from "@inkjs/ui";
+import { Box } from "ink";
+import { useSetAtom } from "jotai";
+import { useMeasurements } from "../lib/dimensions.js";
+import { mainPanelAtom } from "../lib/state.js";
 import { useStyles } from "../lib/style.js";
 
 /**
@@ -7,34 +10,45 @@ import { useStyles } from "../lib/style.js";
  * @returns {JSX.Element}
  */
 const MenuPanel = () => {
-	const styles = useStyles();
+	const commands = [
+		{
+			label: "Exit",
+			value: "exit"
+		},
+		{
+			label: "Debug",
+			value: "debug"
+		},
+		{
+			label: "Gur",
+			value: "gur"
+		}
+	];
 
-	const commands = {
-		logout: {},
-		deposit: {},
-		price: {},
-		list: {},
-		multi: {},
-		rfid: {},
-		account: {},
-		language: {},
-		nobar: {}
-	};
+	const styles = useStyles();
+	const { ref, height } = useMeasurements();
+	const setPanel = useSetAtom(mainPanelAtom);
 
 	return (
-		<BorderBox flexDirection="column" paddingX={1} flexShrink={0}>
-			{Object.keys(commands).map((command, idx) => (
-				<Box
-					flexDirection="row"
-					justifyContent="space-between"
-					gap={1}
-					key={idx}
-				>
-					<Text>{command}</Text>
-					<Text color={styles.accentColor}>{">"}</Text>
-				</Box>
-			))}
-		</BorderBox>
+		<Box
+			ref={ref}
+			borderStyle={styles.borderStyle}
+			borderColor={styles.borderColor}
+			flexDirection="column"
+			flexShrink={0}
+			paddingX={1}
+			height={"100%"}
+		>
+			{height > 6 && (
+				// Defer rendering of the select component until we have the height
+				<Select
+					options={commands}
+					visibleOptionCount={height}
+					defaultValue="gur"
+					onChange={value => setPanel(value)}
+				/>
+			)}
+		</Box>
 	);
 };
 

@@ -1,5 +1,4 @@
 import { atom, useAtomValue } from "jotai";
-import type { ReactNode } from "react";
 
 /**
  * Global utils functions for interacting across components
@@ -15,9 +14,9 @@ export const utilsAtom = atom<Utils>({
 export const useUtils = () => useAtomValue(utilsAtom);
 
 /**
- * Houses the current displayed dialog shown on top of all other components
+ * Houses the current panel chosen in the menu
  */
-export const dialogAtom = atom<ReactNode | null>(null);
+export const mainPanelAtom = atom<string>("gur");
 
 /**
  * The logged in user

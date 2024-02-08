@@ -1,5 +1,8 @@
-import { useStdout } from "ink";
-import { useEffect, useState } from "react";
+import type { DOMElement } from "ink";
+import { measureElement, useStdout } from "ink";
+import { useAtomValue } from "jotai";
+import { useEffect, useRef, useState } from "react";
+import { mainPanelAtom } from "./state.js";
 
 type Dimensions = {
 	width: number;
@@ -29,6 +32,31 @@ const useDimensions = () => {
 	}, [width, height]);
 
 	return dimensions;
+};
+
+export const useMeasurements = ([...deps] = []) => {
+	type Measurements = {
+		width: number;
+		height: number;
+	};
+
+	const ref = useRef<DOMElement>(null);
+	const [measurements, setMeasurements] = useState<Measurements>(
+		{} as Measurements
+	);
+
+	const { width, height } = useDimensions();
+	const mainPanel = useAtomValue(mainPanelAtom);
+
+	useEffect(() => {
+		setTimeout(() => {
+			if (ref.current !== null) {
+				setMeasurements(measureElement(ref.current));
+			}
+		}, 5);
+	}, [ref.current, width, height, mainPanel, ...deps]);
+
+	return { ref, ...measurements };
 };
 
 export default useDimensions;

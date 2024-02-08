@@ -229,12 +229,17 @@ export const Gur = () => {
 	);
 };
 
-const GurPanel = ({ ...rest }: React.ComponentProps<typeof BorderBox>) => (
+type OwnProps = {
+	visible: boolean;
+} & React.ComponentProps<typeof BorderBox>;
+
+const GurPanel = ({ visible, ...rest }: OwnProps) => (
 	<BorderBox
 		overflow="hidden"
 		flexDirection="column"
 		flexGrow={20}
 		center={true}
+		display={visible ? "flex" : "none"}
 		{...rest}
 	>
 		<Gur />

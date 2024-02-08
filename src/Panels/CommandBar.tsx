@@ -1,10 +1,13 @@
-import { Text } from "ink";
+import { TextInput } from "@inkjs/ui";
 import BorderBox from "../components/BorderBox.js";
 
 const CommandBar = () => {
 	return (
 		<BorderBox flexDirection="row" flexShrink={0}>
-			<Text>Username:</Text>
+			<TextInput
+				placeholder="Type username:"
+				onSubmit={value => console.log(value)}
+			/>
 		</BorderBox>
 	);
 };
