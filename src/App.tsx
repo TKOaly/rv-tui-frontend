@@ -1,11 +1,11 @@
 import { Box, useApp, useStdout } from "ink";
 import { useSetAtom } from "jotai";
 //import useDimensions from "./lib/dimensions.ts";
+import { utilsAtom } from "./lib/state.js";
 import CommandBar from "./Panels/CommandBar.js";
 import DebugPanel from "./Panels/DebugPanel.js";
 import GurPanel from "./Panels/GURPanel.js";
 import Menu from "./Panels/MenuPanel.js";
-import { utilsAtom } from "./lib/state.js";
 
 const App = () => {
 	const { exit } = useApp();

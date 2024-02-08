@@ -1,4 +1,4 @@
-import { useStyles } from "../lib/state.js";
+import { useStyles } from "../lib/style.js";
 import type { LayoutBoxProps } from "./LayoutBox.js";
 import LayoutBox from "./LayoutBox.js";
 
