@@ -16,11 +16,15 @@ const DebugPanel = () => {
 	});
 
 	return (
-		<BorderBox
+		<TabBox
+			title="Debug"
 			flexDirection="row"
 			flexGrow={20}
+			width={"100%"}
+			flexShrink={0}
 			overflowY="hidden"
-			align="left"
+			alignItems="flex-start"
+			justifyContent="flex-start"
 			flexWrap="wrap"
 		>
 			<Barcode EAN={96385074} height={6} numbers />
@@ -33,7 +37,8 @@ const DebugPanel = () => {
 					<Text>Debugging Debugging</Text>
 				</TabBox>
 			</LayoutBox>
-		</BorderBox>
+			<BorderBox></BorderBox>
+		</TabBox>
 	);
 };
 

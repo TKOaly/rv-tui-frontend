@@ -92,7 +92,7 @@ export const TabBox = ({
 		if (ref.current) {
 			setWidth(measureElement(ref.current).width);
 		}
-	}, [ref.current]);
+	}, [ref.current, children]);
 
 	return (
 		<LayoutBox align="left" flexDirection="column">
@@ -109,7 +109,6 @@ export const TabBox = ({
 				borderColor={styles.borderColor}
 				{...rest}
 			>
-				<Text>{width} </Text>
 				{children}
 			</Box>
 		</LayoutBox>

@@ -36,7 +36,7 @@ const App = () => {
 			<Box flexDirection="row" height={"100%"}>
 				<Menu />
 				<DebugPanel />
-				<GurPanel display="none" />
+				<GurPanel />
 			</Box>
 			<CommandBar />
 		</Box>
