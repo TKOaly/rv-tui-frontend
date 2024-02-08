@@ -58,7 +58,7 @@ const pairStrings: Record<string, string> = {
 	"1": "▌"
 };
 
-const errorString = "▌▌ BARCODE ▐▐▐ BARCODE ▐▐";
+const errorString = "▌▌░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░▌▌░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░▌▌";
 
 /**
  * Creates a unicode representation of an EAN-13 or EAN-8 barcode
@@ -74,14 +74,13 @@ const convert = (barcode: number, scale: 1 | 2) => {
 	const type = length === 13 ? "EAN-13" : "EAN-8";
 
 	const barcodeArray = barcode.toString().split("").map(Number);
-	const firstDigit = barcodeArray.shift() ?? 0;
-	const pattern = patterns[firstDigit].split("");
+	const firstDigit = type === "EAN-13" ? barcodeArray.shift() ?? 0 : 0;
+	const pattern =
+		type === "EAN-13" ? patterns[firstDigit].split("") : ["L", "L", "L", "L"];
 
 	const leftGroup = barcodeArray
 		.slice(0, type === "EAN-13" ? 6 : 4)
-		.map((number, index) =>
-			pattern[index] === "L" || type === "EAN-8" ? L[number] : G[number]
-		);
+		.map((number, index) => (pattern[index] === "L" ? L[number] : G[number]));
 
 	const rightGroup = barcodeArray
 		.slice(type === "EAN-13" ? 6 : 4, type === "EAN-13" ? 12 : 8)
@@ -106,7 +105,7 @@ const convert = (barcode: number, scale: 1 | 2) => {
  * @param barcode EAN-13 or EAN-8 barcode number
  * @returns String
  */
-const EANToUnicode = (barcode: number, scale: 1 | 2 = 1) => {
+export const EANToUnicode = (barcode: number, scale: 1 | 2 = 1) => {
 	try {
 		return convert(barcode, scale);
 	} catch (_e) {
@@ -114,4 +113,17 @@ const EANToUnicode = (barcode: number, scale: 1 | 2 = 1) => {
 	}
 };
 
-export default EANToUnicode;
+export const splitEAN = (barcode: number) => {
+	const code = barcode.toString();
+	const length = code.length;
+
+	const splitPoint = Math.floor(length / 2);
+	const truncated = length === 13 ? code.slice(1) : code;
+	const firstDigit = length === 13 ? code.split("")[0] : undefined;
+	const [leftGroup, rightGroup] = [
+		truncated.toString().slice(0, splitPoint),
+		truncated.toString().slice(splitPoint)
+	];
+
+	return { firstDigit, leftGroup, rightGroup };
+};

@@ -229,8 +229,14 @@ export const Gur = () => {
 	);
 };
 
-const GurBox = () => (
-	<BorderBox flexDirection="column" flexGrow={20} center={true}>
+const GurBox = ({ ...rest }: React.ComponentProps<typeof BorderBox>) => (
+	<BorderBox
+		overflow="hidden"
+		flexDirection="column"
+		flexGrow={20}
+		center={true}
+		{...rest}
+	>
 		<Gur />
 	</BorderBox>
 );
