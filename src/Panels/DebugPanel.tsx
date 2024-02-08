@@ -2,6 +2,8 @@ import { Text } from "ink";
 import { useEffect, useState } from "react";
 import Barcode from "../components/Barcode.js";
 import BorderBox from "../components/BorderBox.js";
+import LayoutBox from "../components/LayoutBox.js";
+import { TabBox, TabHeader } from "../components/tabs/TabBox.js";
 
 const DebugPanel = () => {
 	const [timer, setTimer] = useState(0);
@@ -9,7 +11,7 @@ const DebugPanel = () => {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setTimer(t => t + 1);
-		}, 1000);
+		}, 10);
 		return () => clearInterval(interval);
 	});
 
@@ -23,8 +25,14 @@ const DebugPanel = () => {
 		>
 			<Barcode EAN={96385074} height={6} numbers />
 			<BorderBox>
-				<Text>{timer}</Text>
+				<Text>10ms: {timer}</Text>
 			</BorderBox>
+			<TabHeader title="Debug" />
+			<LayoutBox>
+				<TabBox title="testing" flexWrap="wrap">
+					<Text>Debugging Debugging</Text>
+				</TabBox>
+			</LayoutBox>
 		</BorderBox>
 	);
 };

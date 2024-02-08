@@ -22,7 +22,7 @@ const MenuPanel = () => {
 	};
 
 	return (
-		<BorderBox flexDirection="column" paddingX={1}>
+		<BorderBox flexDirection="column" paddingX={1} flexShrink={0}>
 			{Object.keys(commands).map((command, idx) => (
 				<Box
 					flexDirection="row"
