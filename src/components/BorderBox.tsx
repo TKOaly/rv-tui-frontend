@@ -1,6 +1,6 @@
-import { useStyles } from "../lib/state.js";
-import type { LayoutBoxProps } from "./LayoutBox.js";
-import LayoutBox from "./LayoutBox.js";
+import { useStyles } from "../lib/state.ts";
+import type { LayoutBoxProps } from "./LayoutBox.tsx";
+import LayoutBox from "./LayoutBox.tsx";
 
 const BorderBox = ({ align, center, children, ...rest }: LayoutBoxProps) => {
 	const styles = useStyles();

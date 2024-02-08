@@ -1,6 +1,6 @@
 import { Box, Text } from "ink";
-import BorderBox from "../components/BorderBox.js";
-import type { Color } from "../lib/state.js";
+import BorderBox from "../components/BorderBox.tsx";
+import type { Color } from "../lib/state.ts";
 
 const [red, green, blue, _yellow, white]: Color[] = [
 	"red",
@@ -229,7 +229,7 @@ export const Gur = () => {
 	);
 };
 
-const GurBox = ({ ...rest }: React.ComponentProps<typeof BorderBox>) => (
+const GurPanel = ({ ...rest }: React.ComponentProps<typeof BorderBox>) => (
 	<BorderBox
 		overflow="hidden"
 		flexDirection="column"
@@ -241,4 +241,4 @@ const GurBox = ({ ...rest }: React.ComponentProps<typeof BorderBox>) => (
 	</BorderBox>
 );
 
-export default GurBox;
+export default GurPanel;

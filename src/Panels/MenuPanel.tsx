@@ -1,12 +1,12 @@
 import { Box, Text } from "ink";
-import BorderBox from "../components/BorderBox.js";
-import { useStyles } from "../lib/state.js";
+import BorderBox from "../components/BorderBox.tsx";
+import { useStyles } from "../lib/state.ts";
 
 /**
  * Houses the main navigation pane
  * @returns {JSX.Element}
  */
-const Menu = () => {
+const MenuPanel = () => {
 	const styles = useStyles();
 
 	const commands = {
@@ -38,4 +38,4 @@ const Menu = () => {
 	);
 };
 
-export default Menu;
+export default MenuPanel;

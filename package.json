@@ -2,7 +2,7 @@
 	"name": "rv-user-frontend",
 	"version": "0.0.1",
 	"license": "MIT",
-	"bin": "dist/cli.js",
+	"bin": "dist/RV.js",
 	"type": "module",
 	"engines": {
 		"bun": "^1.0.0"
@@ -11,7 +11,6 @@
 		"start": "bun -b src/RV.tsx",
 		"dev": "bun -b --watch src/RV.tsx",
 		"build": "tsc",
-		"test": "ava",
 		"lint": "prettier --check . && eslint . --ext .ts,.tsx",
 		"lint:fix": "prettier --write . && eslint . --ext .ts,.tsx --fix"
 	},
@@ -39,15 +38,6 @@
 		"ink-testing-library": "^3.0.0",
 		"prettier": "^2.8.7",
 		"typescript": "^5.0.3"
-	},
-	"ava": {
-		"extensions": {
-			"ts": "module",
-			"tsx": "module"
-		},
-		"nodeArguments": [
-			"--loader=ts-node/esm"
-		]
 	},
 	"prettier": {
 		"useTabs": true,

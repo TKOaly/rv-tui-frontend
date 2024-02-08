@@ -1,11 +1,11 @@
-import { Box, useApp } from "ink";
+import { Box, useApp, useStdout } from "ink";
 import { useSetAtom } from "jotai";
-//import useDimensions from "./lib/dimensions.js";
-import CommandBar from "./Panels/CommandBar.js";
-import DebugPanel from "./Panels/DebugPanel.js";
-import GurBox from "./Panels/GURBox.js";
-import Menu from "./Panels/Menu.js";
-import { utilsAtom } from "./lib/state.js";
+//import useDimensions from "./lib/dimensions.ts";
+import CommandBar from "./Panels/CommandBar.tsx";
+import DebugPanel from "./Panels/DebugPanel.tsx";
+import GurPanel from "./Panels/GURPanel.tsx";
+import Menu from "./Panels/MenuPanel.tsx";
+import { utilsAtom } from "./lib/state.ts";
 
 const App = () => {
 	const { exit } = useApp();
@@ -18,7 +18,8 @@ const App = () => {
 	//const width = unsafeWidth - 1;
 
 	// Fullscreen
-	const [width, height] = process.stdout.getWindowSize();
+	const { stdout } = useStdout();
+	const [width, height] = stdout.getWindowSize();
 
 	// Dimensions of current RV-terminal
 	//const width = 100;
@@ -34,7 +35,7 @@ const App = () => {
 			<Box flexDirection="row" height={"100%"}>
 				<Menu />
 				<DebugPanel />
-				<GurBox display="none" />
+				<GurPanel display="none" />
 			</Box>
 			<CommandBar />
 		</Box>
