@@ -1,6 +1,5 @@
 import { Box, Text } from "ink";
-import BorderBox from "../components/BorderBox.js";
-import type { Color } from "../lib/style.js";
+import type { Color } from "../../lib/style.js";
 
 const [red, green, blue, _yellow, white]: Color[] = [
 	"red",
@@ -10,7 +9,7 @@ const [red, green, blue, _yellow, white]: Color[] = [
 	"grey"
 ];
 
-const gur1 = () => (
+export const Gur1 = () => (
 	<Box width={21} height={6} flexDirection="column">
 		<Text>
 			<Text color={red}>{"   _____ "}</Text>
@@ -40,7 +39,7 @@ const gur1 = () => (
 	</Box>
 );
 
-const gur2 = () => (
+export const Gur2 = () => (
 	<Box width={21} height={5} flexDirection="column">
 		<Text>
 			<Text color={red}>{"  ____ "}</Text>
@@ -65,7 +64,7 @@ const gur2 = () => (
 	</Box>
 );
 
-const gur3 = () => (
+export const Gur3 = () => (
 	<Box width={31} height={7} flexDirection="column">
 		<Text>
 			<Text color={white}>{"                         ┌─┐┌─┐"}</Text>
@@ -95,7 +94,7 @@ const gur3 = () => (
 	</Box>
 );
 
-const gur4 = () => (
+export const Gur4 = () => (
 	<Box width={25} height={5} flexDirection="column">
 		<Text>
 			<Text color={red}>{"┌──────┬"}</Text>
@@ -120,7 +119,7 @@ const gur4 = () => (
 	</Box>
 );
 
-const gur5 = () => (
+export const Gur5 = () => (
 	<Box width={31} height={7} flexDirection="column">
 		<Text>
 			<Text color={white}>{"                         ╭─╮╭─╮"}</Text>
@@ -150,7 +149,7 @@ const gur5 = () => (
 	</Box>
 );
 
-const gur6 = () => (
+export const Gur6 = () => (
 	<Box width={33} height={7} flexDirection="column">
 		<Text>
 			<Text color={white}>{"                           ╭─╮╭─╮"}</Text>
@@ -180,7 +179,7 @@ const gur6 = () => (
 	</Box>
 );
 
-const gur7 = () => (
+export const Gur7 = () => (
 	<Box width={40} height={7} flexDirection="column">
 		<Text color={"black"}>
 			<Text>{"                                "}</Text>
@@ -210,40 +209,3 @@ const gur7 = () => (
 		</Text>
 	</Box>
 );
-
-export const Gur = () => {
-	//Random gur
-	//const gur = Math.floor(Math.random() * 3);
-	const gur: number = 5;
-
-	return (
-		<Box marginRight={1}>
-			{gur === 0 && gur1()}
-			{gur === 1 && gur2()}
-			{gur === 2 && gur3()}
-			{gur === 3 && gur4()}
-			{gur === 4 && gur5()}
-			{gur === 5 && gur6()}
-			{gur === 6 && gur7()}
-		</Box>
-	);
-};
-
-type OwnProps = {
-	visible: boolean;
-} & React.ComponentProps<typeof BorderBox>;
-
-const GurPanel = ({ visible, ...rest }: OwnProps) => (
-	<BorderBox
-		overflow="hidden"
-		flexDirection="column"
-		flexGrow={20}
-		center={true}
-		display={visible ? "flex" : "none"}
-		{...rest}
-	>
-		<Gur />
-	</BorderBox>
-);
-
-export default GurPanel;

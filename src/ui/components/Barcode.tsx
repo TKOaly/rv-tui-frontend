@@ -1,6 +1,6 @@
 import { Box, Text } from "ink";
 import type React from "react";
-import { EANToUnicode, splitEAN } from "../lib/barcodes.js";
+import { EANToUnicode, splitEAN } from "../../lib/barcodes.js";
 
 type OwnProps = {
 	EAN: number;

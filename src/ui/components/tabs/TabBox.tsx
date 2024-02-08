@@ -1,7 +1,7 @@
 import type { DOMElement } from "ink";
 import { Box, Text } from "ink";
-import { useMeasurements } from "../../lib/dimensions.js";
-import { useStyles } from "../../lib/style.js";
+import { useMeasurements } from "../../../lib/dimensions.js";
+import { useStyles } from "../../../lib/style.js";
 import BorderBox from "../BorderBox.js";
 import LayoutBox from "../LayoutBox.js";
 

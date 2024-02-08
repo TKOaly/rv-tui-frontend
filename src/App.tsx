@@ -1,11 +1,13 @@
 import { Box, useApp } from "ink";
 import { useAtomValue, useSetAtom } from "jotai";
-import CommandBar from "./Panels/CommandBar.js";
-import DebugPanel from "./Panels/DebugPanel.js";
-import GurPanel from "./Panels/GURPanel.js";
-import Menu from "./Panels/MenuPanel.js";
 import useDimensions from "./lib/dimensions.js";
 import { mainPanelAtom, utilsAtom } from "./lib/state.js";
+import AciiArtPanel from "./ui/panels/AsciiArtPanel.js";
+import CommandBar from "./ui/panels/CommandBar.js";
+import DebugPanel from "./ui/panels/DebugPanel.js";
+import { Gur6 } from "./ui/panels/GURPrompts.js";
+import { Dogo, Fuuuu, Rip } from "./ui/panels/LegacyPrompts.js";
+import Menu from "./ui/panels/MenuPanel.js";
 
 const App = () => {
 	const { exit } = useApp();
@@ -38,7 +40,26 @@ const App = () => {
 			<Box flexDirection="row" height={"100%"}>
 				<Menu />
 				{<DebugPanel visible={mainPanel === "debug"} />}
-				{<GurPanel flexShrink={0} visible={mainPanel === "gur"} />}
+				{
+					<AciiArtPanel flexShrink={0} visible={mainPanel === "gur"}>
+						<Gur6 />
+					</AciiArtPanel>
+				}
+				{
+					<AciiArtPanel flexShrink={0} visible={mainPanel === "dogo"}>
+						<Dogo />
+					</AciiArtPanel>
+				}
+				{
+					<AciiArtPanel flexShrink={0} visible={mainPanel === "fuuuu"}>
+						<Fuuuu />
+					</AciiArtPanel>
+				}
+				{
+					<AciiArtPanel flexShrink={0} visible={mainPanel === "rip"}>
+						<Rip />
+					</AciiArtPanel>
+				}
 			</Box>
 			<CommandBar />
 		</Box>

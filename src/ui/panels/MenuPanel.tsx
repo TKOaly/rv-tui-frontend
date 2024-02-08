@@ -1,9 +1,9 @@
 import { Select } from "@inkjs/ui";
 import { Box } from "ink";
 import { useSetAtom } from "jotai";
-import { useMeasurements } from "../lib/dimensions.js";
-import { mainPanelAtom } from "../lib/state.js";
-import { useStyles } from "../lib/style.js";
+import { useMeasurements } from "../../lib/dimensions.js";
+import { mainPanelAtom } from "../../lib/state.js";
+import { useStyles } from "../../lib/style.js";
 
 /**
  * Houses the main navigation pane
@@ -22,6 +22,18 @@ const MenuPanel = () => {
 		{
 			label: "Gur",
 			value: "gur"
+		},
+		{
+			label: "Dogo",
+			value: "dogo"
+		},
+		{
+			label: "Nag",
+			value: "fuuuu"
+		},
+		{
+			label: "Nag 2",
+			value: "rip"
 		}
 	];
 

@@ -1,10 +1,11 @@
 import { Text } from "ink";
 import { useEffect, useState } from "react";
+import type { PanelProps } from "../../lib/types.js";
 import Barcode from "../components/Barcode.js";
 import BorderBox from "../components/BorderBox.js";
 import LayoutBox from "../components/LayoutBox.js";
 import { TabBox, TabHeader } from "../components/tabs/TabBox.js";
-import type { PanelProps } from "../lib/types.js";
+import { Gur4, Gur6 } from "./GURPrompts.js";
 
 const DebugPanel = ({ visible }: PanelProps) => {
 	const [timer, setTimer] = useState(0);
@@ -39,8 +40,13 @@ const DebugPanel = ({ visible }: PanelProps) => {
 				<TabBox title="testing" flexWrap="wrap">
 					<Text>Debugging Debugging</Text>
 				</TabBox>
+				<TabBox title="GUR" headerPosition={4} flexWrap="wrap">
+					<Gur4 />
+				</TabBox>
+				<TabBox title="GUR" headerCentered flexWrap="wrap">
+					<Gur6 />
+				</TabBox>
 			</LayoutBox>
-			<BorderBox></BorderBox>
 		</TabBox>
 	);
 };
