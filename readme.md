@@ -1,7 +1,21 @@
-# rv-user-frontend
+# rv-tui-frontend
 
-## Install
+## Setup
+
+## Prerequisites
+- install `node`,`npm`
 
 ```bash
-$ npm install --global rv-user-frontend
+$ npm install
+  npm run build
+  npm link
 ```
+After this the app can be lauched with
+```bash
+$ npm run dev
+```
+```bash
+$ rv
+```
+
+- Linting with IDE extension of NPM scripts
