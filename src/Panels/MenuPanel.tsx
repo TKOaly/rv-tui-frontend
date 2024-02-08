@@ -1,6 +1,6 @@
 import { Box, Text } from "ink";
-import BorderBox from "../components/BorderBox.tsx";
-import { useStyles } from "../lib/state.ts";
+import BorderBox from "../components/BorderBox.js";
+import { useStyles } from "../lib/state.js";
 
 /**
  * Houses the main navigation pane

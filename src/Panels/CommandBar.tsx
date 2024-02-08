@@ -1,5 +1,5 @@
 import { Text } from "ink";
-import BorderBox from "../components/BorderBox";
+import BorderBox from "../components/BorderBox.js";
 
 const CommandBar = () => {
 	return (

@@ -2,7 +2,6 @@ import { type ForegroundColorName } from "chalk";
 import { type Boxes } from "cli-boxes";
 import { atom, useAtomValue } from "jotai";
 import type { ReactNode } from "react";
-import { type LiteralUnion } from "type-fest";
 
 /**
  * Global utils functions for interacting across components
@@ -21,7 +20,7 @@ export const useUtils = () => useAtomValue(utilsAtom);
  * The style variables used throughout the app
  * Can be reactively updated with useSetAtom()
  */
-export type Color = LiteralUnion<ForegroundColorName, string>;
+export type Color = ForegroundColorName;
 
 type Styles = {
 	borderColor: Color;

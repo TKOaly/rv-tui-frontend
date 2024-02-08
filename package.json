@@ -1,16 +1,16 @@
 {
-	"name": "rv-user-frontend",
+	"name": "rv",
 	"version": "0.0.1",
 	"license": "MIT",
-	"bin": "dist/RV.js",
+	"bin": "dist/rv.js",
 	"type": "module",
+	"private": true,
 	"engines": {
-		"bun": "^1.0.0"
+		"node": ">=20"
 	},
 	"scripts": {
-		"start": "bun -b src/RV.tsx",
-		"dev": "bun -b --watch src/RV.tsx",
 		"build": "tsc",
+		"dev": "tsc --watch",
 		"lint": "prettier --check . && eslint . --ext .ts,.tsx",
 		"lint:fix": "prettier --write . && eslint . --ext .ts,.tsx --fix"
 	},
@@ -37,6 +37,7 @@
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"ink-testing-library": "^3.0.0",
 		"prettier": "^2.8.7",
+		"ts-node": "^10.9.1",
 		"typescript": "^5.0.3"
 	},
 	"prettier": {

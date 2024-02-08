@@ -1,14 +1,15 @@
 import { Box, useApp, useStdout } from "ink";
 import { useSetAtom } from "jotai";
 //import useDimensions from "./lib/dimensions.ts";
-import CommandBar from "./Panels/CommandBar.tsx";
-import DebugPanel from "./Panels/DebugPanel.tsx";
-import GurPanel from "./Panels/GURPanel.tsx";
-import Menu from "./Panels/MenuPanel.tsx";
-import { utilsAtom } from "./lib/state.ts";
+import CommandBar from "./Panels/CommandBar.js";
+import DebugPanel from "./Panels/DebugPanel.js";
+import GurPanel from "./Panels/GURPanel.js";
+import Menu from "./Panels/MenuPanel.js";
+import { utilsAtom } from "./lib/state.js";
 
 const App = () => {
 	const { exit } = useApp();
+
 	const setUtils = useSetAtom(utilsAtom);
 	setUtils({ exit });
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { render } from "ink";
-import App from "./App.tsx";
+import App from "./App.js";
 
 const { unmount, clear } = render(<App />);
 
@@ -8,5 +8,5 @@ const { unmount, clear } = render(<App />);
 process.on("SIGINT", () => {
 	clear();
 	unmount();
-	process.stdout.write("<rv logs above ^ $>");
+	process.stdout.write("< . $>");
 });

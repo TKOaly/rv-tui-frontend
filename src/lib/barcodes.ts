@@ -76,7 +76,9 @@ const convert = (barcode: number, scale: 1 | 2) => {
 	const barcodeArray = barcode.toString().split("").map(Number);
 	const firstDigit = type === "EAN-13" ? barcodeArray.shift() ?? 0 : 0;
 	const pattern =
-		type === "EAN-13" ? patterns[firstDigit].split("") : ["L", "L", "L", "L"];
+		type === "EAN-13"
+			? (patterns[firstDigit] ?? "").split("")
+			: ["L", "L", "L", "L"];
 
 	const leftGroup = barcodeArray
 		.slice(0, type === "EAN-13" ? 6 : 4)

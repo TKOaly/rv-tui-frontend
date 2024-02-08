@@ -1,6 +1,6 @@
 import { Box, Text } from "ink";
-import BorderBox from "../components/BorderBox.tsx";
-import type { Color } from "../lib/state.ts";
+import BorderBox from "../components/BorderBox.js";
+import type { Color } from "../lib/state.js";
 
 const [red, green, blue, _yellow, white]: Color[] = [
 	"red",
