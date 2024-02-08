@@ -10,7 +10,7 @@ type Dimensions = {
 };
 
 /**
- * Listens dimensions of the terminal
+ * Listens for dimensions of the terminal
  * @returns Object with width and height
  */
 const useDimensions = () => {
@@ -34,6 +34,15 @@ const useDimensions = () => {
 	return dimensions;
 };
 
+/**
+ * Listens for dimensions of a <Box> element.
+ *
+ * The returned ref should be given directly to the
+ * measured element, not through another component as
+ * this seems to cause issues with ink.
+ * @returns Object with width, height and a ref to be
+ * given to the measured element
+ */
 export const useMeasurements = ([...deps] = []) => {
 	type Measurements = {
 		width: number;

@@ -5,9 +5,10 @@ import { mainPanelAtom, utilsAtom } from "./lib/state.js";
 import AciiArtPanel from "./ui/panels/AsciiArtPanel.js";
 import CommandBar from "./ui/panels/CommandBar.js";
 import DebugPanel from "./ui/panels/DebugPanel.js";
-import { Gur6 } from "./ui/panels/GURPrompts.js";
-import { Dogo, Fuuuu, Rip } from "./ui/panels/LegacyPrompts.js";
 import Menu from "./ui/panels/MenuPanel.js";
+import UserPanel from "./ui/panels/UserPanel.js";
+import { Gur6 } from "./ui/prompts/GURPrompts.js";
+import { Dogo, Fuuuu, Rip } from "./ui/prompts/LegacyPrompts.js";
 
 const App = () => {
 	const { exit } = useApp();
@@ -39,6 +40,7 @@ const App = () => {
 		>
 			<Box flexDirection="row" height={"100%"}>
 				<Menu />
+				<UserPanel />
 				{<DebugPanel visible={mainPanel === "debug"} />}
 				{
 					<AciiArtPanel flexShrink={0} visible={mainPanel === "gur"}>

@@ -15,9 +15,12 @@ export const TurboFish = () => {
 	);
 };
 
+/**
+ * @author dogo
+ */
 export const Dogo = () => {
 	const dogo = [
-		"                 |\\             ",
+		"                |\\              ",
 		"        /    /\\/o\\_            ",
 		"       (.-.__.(   __o            ",
 		"    /\\_(      .----'            ",

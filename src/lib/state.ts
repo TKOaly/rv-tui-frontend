@@ -25,4 +25,6 @@ type User = {
 	username: string;
 };
 
-export const userAtom = atom<User | undefined>(undefined);
+export const userAtom = atom<User | undefined>({
+	username: "Anonymous"
+});
