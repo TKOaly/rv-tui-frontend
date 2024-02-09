@@ -33,25 +33,27 @@ const cli = meow(
       
     Options
     
-        --dimensions    Set the size of the user interface    
-			possible values:
-                "static" -  default, default is 100x28. (terminal dimensions of old RV) Will be overridden by --weight and --height if defined
-                "initial" - dimensions set to terminal size on startup
-                "dynamic" - dimensions are updated dynamically when the terminal is resized
+        --dimensions [mode]		Set the dimensions mode of the user interface
+
+			available modes:
+				"initial":	Default, Dimensions set to terminal size on startup
+				"static":	Default is 100x28 (terminal dimensions of old RV)
+						Can be set manually with --weight and --height
+				"dynamic":	Dimensions are updated dynamically when the terminal is resized
         
-        --width         Set the width of the user interface
-                            Overrides the width set by --dimensions
+        --width [width]		Set the width of the user interface
+						Overrides the width set by --dimensions
         
-        --height        Set the height of the user interface
-                            Overrides the height set by --dimensions
+        --height [height]		Set the height of the user interface
+						Overrides the height set by --dimensions
       `,
 	{
 		importMeta: import.meta,
 		flags: {
 			dimensions: {
 				type: "string",
-				default: "static",
-				choices: ["static", "initial", "dynamic"]
+				default: "initial",
+				choices: ["initial", "static", "dynamic"]
 			},
 			width: {
 				type: "number",

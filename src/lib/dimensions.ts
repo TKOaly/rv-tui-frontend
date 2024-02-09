@@ -13,7 +13,7 @@ type Dimensions = {
  * Listens for dimensions of the terminal
  * @returns Object with width and height
  */
-const useDimensions = () => {
+const useDynamicDimensions = () => {
 	const { stdout } = useStdout();
 	const { columns: width, rows: height } = stdout;
 	const [dimensions, setDimensions] = useState<Dimensions>({
@@ -32,6 +32,25 @@ const useDimensions = () => {
 	}, [width, height]);
 
 	return dimensions;
+};
+
+export const useDimensions = (
+	staticWidth: number,
+	staticHeight: number,
+	dimensionsMode: string
+) => {
+	// Subscribe to the dynamic dimensions
+	const { width: unsafeWidth, height: dynamicHeight } = useDynamicDimensions();
+	const dynamicWidth = unsafeWidth - 1;
+
+	// Choose the dimensions
+	const width = (() =>
+		dimensionsMode === "dynamic" ? dynamicWidth : staticWidth)();
+
+	const height = (() =>
+		dimensionsMode === "dynamic" ? dynamicHeight : staticHeight)();
+
+	return { width, height };
 };
 
 /**
@@ -54,7 +73,7 @@ export const useMeasurements = ([...deps] = []) => {
 		{} as Measurements
 	);
 
-	const { width, height } = useDimensions();
+	const { width, height } = useDynamicDimensions();
 	const mainPanel = useAtomValue(mainPanelAtom);
 
 	useEffect(() => {
@@ -67,5 +86,3 @@ export const useMeasurements = ([...deps] = []) => {
 
 	return { ref, ...measurements };
 };
-
-export default useDimensions;

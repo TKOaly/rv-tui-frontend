@@ -1,5 +1,7 @@
-import { Box, useApp } from "ink";
+import { Box, useApp, useStdout } from "ink";
 import { useAtomValue, useSetAtom } from "jotai";
+import { useEffect, useState } from "react";
+import { useDimensions } from "./lib/dimensions.js";
 import type { Cli } from "./rv.js";
 import { cliAtom } from "./state/cli.js";
 import { mainPanelAtom } from "./state/navigation.js";
@@ -13,24 +15,43 @@ import { Gur6 } from "./ui/prompts/GURPrompts.js";
 import { Dogo, Fuuuu, Rip } from "./ui/prompts/LegacyPrompts.js";
 
 const App = ({ cli }: { cli: Cli }) => {
+	// Make cli values available globally
 	const setCli = useSetAtom(cliAtom);
 	setCli(cli);
 
+	// Make exit function available globally
 	const { exit } = useApp();
-
 	const setUtils = useSetAtom(utilsAtom);
 	setUtils({ exit });
 
-	// Can be used to make dimensions dynamic
-	// True width causes wrapping when resizing width down
-	//const { width: unsafeWidth, height } = useDimensions();
-	//const width = unsafeWidth - 1;
+	// Dimensions settings specified in the CLI
+	const {
+		dimensions: dimensionsMode,
+		width: staticWidth,
+		height: staticHeight
+	} = cli.flags;
 
-	// Fullscreen
-	//const { stdout } = useStdout();
-	//const [width, height] = stdout.getWindowSize();
+	// Get the initial dimensions of the terminal
+	const { stdout } = useStdout();
+	const [{ initialWidth, initialHeight }, setinitialDimensions] = useState({
+		initialWidth: 100,
+		initialHeight: 28
+	});
+	useEffect(() => {
+		const [width, height] = stdout.getWindowSize();
+		setinitialDimensions({ initialWidth: width, initialHeight: height });
+	}, []);
 
-	const [width, height] = [cli.flags.width, cli.flags.height];
+	/**
+	 * Get the actual dimensions of the application.
+	 * Initial terminal dimensions are the default.
+	 * Hook returns a reactive width and height if dimensionsMode is "dynamic"
+	 */
+	const { width, height } = useDimensions(
+		dimensionsMode === "static" ? staticWidth ?? 100 : initialWidth,
+		dimensionsMode === "static" ? staticHeight ?? 28 : initialHeight,
+		dimensionsMode
+	);
 
 	const mainPanel = useAtomValue(mainPanelAtom);
 
