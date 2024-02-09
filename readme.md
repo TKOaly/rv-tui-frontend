@@ -3,24 +3,29 @@
 ## Setup
 
 ### Prerequisites
+
 - install `node` and `npm`
 - install, configure and start [`rv-backend`](https://github.com/TKOaly/rv-backend)
 
 ### Frontend
+
 ```bash
 $
 git clone git@github.com:TKOaly/rv-tui-frontend.git
-cd rv-tui-frontend 
+cd rv-tui-frontend
 npm install
 npm run build
 npm link
 ```
+
 Copy `.env.example` to `.env` and modify it to your environment
 
 After this the app can be lauched with
+
 ```bash
 $ npm run dev
 ```
+
 ```bash
 $ rv
 ```
@@ -42,15 +47,18 @@ src
 │  ├──components
 │  ╰──prompts
 │
+├──state
+│
 ├──queries
 │  ├──admin
 │  ╰──user
+│
 ╰──lib
 ```
 
 ### panels
 
-Houses the layouts/panels/views of the application. Most of the state management and data querying should be done inside these components. 
+Houses the layouts/panels/views of the application. Most of the state management and data querying should be done inside these components.
 
 ### components
 
@@ -59,6 +67,10 @@ Reusable, headless and more general components go here. They shouldn't do any da
 ### prompts
 
 ASCII art etc. for backgrounds, debt nag prompts or easter eggs.
+
+### state
+
+Contains application state that has to be handled locally. Jotai is used to hopefully keep the state simple and avoid larger and complicated state structures. Local state management is mandatory for e.g. navigation but all state related to user or product data should be handled in [queries](#queries) or inside their respective UI panel components.
 
 ### queries
 
@@ -69,11 +81,12 @@ See the [Backend](https://github.com/TKOaly/rv-backend) OpenApi [spec](https://g
 
 ### lib
 
-Contains application state atoms and miscellaneous utility functions. These should separated at some point. 
+Contains miscellaneous application logic and utility functions.
 
 ## Tests
 
 Will be implemented once the codebase is not horribly unstable.
 
 ## Code Style
+
 Linting with IDE extensions or NPM scripts, eslint and prettier config done in the project.

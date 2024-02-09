@@ -1,8 +1,9 @@
 import { Box, useApp } from "ink";
 import { useAtomValue, useSetAtom } from "jotai";
-import { mainPanelAtom, utilsAtom } from "./lib/state.js";
 import type { Cli } from "./rv.js";
 import { cliAtom } from "./state/cli.js";
+import { mainPanelAtom } from "./state/navigation.js";
+import { utilsAtom } from "./state/utils.js";
 import AciiArtPanel from "./ui/panels/AsciiArtPanel.js";
 import CommandBar from "./ui/panels/CommandBar.js";
 import DebugPanel from "./ui/panels/DebugPanel.js";

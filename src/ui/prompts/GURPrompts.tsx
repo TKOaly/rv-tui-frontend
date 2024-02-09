@@ -1,5 +1,5 @@
 import { Box, Text } from "ink";
-import type { Color } from "../../lib/style.js";
+import type { Color } from "../../state/style.js";
 
 const [red, green, blue, _yellow, white]: Color[] = [
 	"red",

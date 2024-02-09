@@ -1,6 +1,6 @@
 import { Box } from "ink";
 import { useMeasurements } from "../../lib/dimensions.js";
-import { useStyles } from "../../lib/style.js";
+import { useStyles } from "../../state/style.js";
 
 type OwnProps = {
 	border?: boolean;

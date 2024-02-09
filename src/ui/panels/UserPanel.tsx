@@ -1,7 +1,7 @@
 import { Box, Text } from "ink";
 import { useAtomValue } from "jotai";
-import { userAtom } from "../../lib/state.js";
-import { useStyles } from "../../lib/style.js";
+import { useStyles } from "../../state/style.js";
+import { userAtom } from "../../state/user.js";
 import BorderBox from "../components/BorderBox.js";
 
 type OwnProps = {

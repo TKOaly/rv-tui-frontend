@@ -2,7 +2,7 @@ import type { DOMElement } from "ink";
 import { measureElement, useStdout } from "ink";
 import { useAtomValue } from "jotai";
 import { useEffect, useRef, useState } from "react";
-import { mainPanelAtom } from "./state.js";
+import { mainPanelAtom } from "../state/navigation.js";
 
 type Dimensions = {
 	width: number;

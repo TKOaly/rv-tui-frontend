@@ -2,8 +2,8 @@ import { Select } from "@inkjs/ui";
 import { Box } from "ink";
 import { useSetAtom } from "jotai";
 import { useMeasurements } from "../../lib/dimensions.js";
-import { mainPanelAtom } from "../../lib/state.js";
-import { useStyles } from "../../lib/style.js";
+import { mainPanelAtom } from "../../state/navigation.js";
+import { useStyles } from "../../state/style.js";
 
 /**
  * Houses the main navigation pane
