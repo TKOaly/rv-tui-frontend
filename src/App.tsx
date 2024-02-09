@@ -1,7 +1,8 @@
 import { Box, useApp } from "ink";
 import { useAtomValue, useSetAtom } from "jotai";
-import useDimensions from "./lib/dimensions.js";
 import { mainPanelAtom, utilsAtom } from "./lib/state.js";
+import type { Cli } from "./rv.js";
+import { cliAtom } from "./state/cli.js";
 import AciiArtPanel from "./ui/panels/AsciiArtPanel.js";
 import CommandBar from "./ui/panels/CommandBar.js";
 import DebugPanel from "./ui/panels/DebugPanel.js";
@@ -10,7 +11,10 @@ import UserPanel from "./ui/panels/UserPanel.js";
 import { Gur6 } from "./ui/prompts/GURPrompts.js";
 import { Dogo, Fuuuu, Rip } from "./ui/prompts/LegacyPrompts.js";
 
-const App = () => {
+const App = ({ cli }: { cli: Cli }) => {
+	const setCli = useSetAtom(cliAtom);
+	setCli(cli);
+
 	const { exit } = useApp();
 
 	const setUtils = useSetAtom(utilsAtom);
@@ -18,16 +22,14 @@ const App = () => {
 
 	// Can be used to make dimensions dynamic
 	// True width causes wrapping when resizing width down
-	const { width: unsafeWidth, height } = useDimensions();
-	const width = unsafeWidth - 1;
+	//const { width: unsafeWidth, height } = useDimensions();
+	//const width = unsafeWidth - 1;
 
 	// Fullscreen
 	//const { stdout } = useStdout();
 	//const [width, height] = stdout.getWindowSize();
 
-	// Dimensions of current RV-terminal
-	//const width = 100;
-	//const height = 28;
+	const [width, height] = [cli.flags.width, cli.flags.height];
 
 	const mainPanel = useAtomValue(mainPanelAtom);
 
