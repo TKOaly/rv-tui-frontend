@@ -1,8 +1,5 @@
-import { Select } from "@inkjs/ui";
-import { Box } from "ink";
-import { useSetAtom } from "jotai";
-import { useMeasurements } from "../../lib/dimensions.js";
-import { mainPanelAtom } from "../../state/navigation.js";
+import { Box, Text, useInput } from "ink";
+import { PrimaryPanel, useNavigation } from "../../state/navigation.js";
 import { useStyles } from "../../state/style.js";
 
 /**
@@ -10,40 +7,22 @@ import { useStyles } from "../../state/style.js";
  * @returns {JSX.Element}
  */
 const MenuPanel = () => {
-	const commands = [
-		{
-			label: "Exit",
-			value: "exit"
-		},
-		{
-			label: "Debug",
-			value: "debug"
-		},
-		{
-			label: "Gur",
-			value: "gur"
-		},
-		{
-			label: "Dogo",
-			value: "dogo"
-		},
-		{
-			label: "Nag",
-			value: "fuuuu"
-		},
-		{
-			label: "Nag 2",
-			value: "rip"
-		}
-	];
+	const commands: Record<string, PrimaryPanel> = {
+		a: PrimaryPanel.Art,
+		d: PrimaryPanel.Debug
+	};
 
 	const styles = useStyles();
-	const { ref, height } = useMeasurements();
-	const setPanel = useSetAtom(mainPanelAtom);
+	const { setNavigation } = useNavigation();
+
+	useInput(input => {
+		if (commands[input]! in PrimaryPanel) {
+			setNavigation({ primaryPanel: commands[input] ?? null });
+		}
+	});
 
 	return (
 		<Box
-			ref={ref}
 			borderStyle={styles.borderStyle}
 			borderColor={styles.borderColor}
 			flexDirection="column"
@@ -51,15 +30,7 @@ const MenuPanel = () => {
 			paddingX={1}
 			height={"100%"}
 		>
-			{height > 6 && (
-				// Defer rendering of the select component until we have the height
-				<Select
-					options={commands}
-					visibleOptionCount={height}
-					defaultValue="gur"
-					onChange={value => setPanel(value)}
-				/>
-			)}
+			<Text>Test</Text>
 		</Box>
 	);
 };

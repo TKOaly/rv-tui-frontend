@@ -1,10 +1,10 @@
 import { Box, useApp, useStdout } from "ink";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { useDimensions } from "./lib/dimensions.js";
 import type { Cli } from "./rv.js";
 import { cliAtom } from "./state/cli.js";
-import { mainPanelAtom } from "./state/navigation.js";
+import { PrimaryPanel, useNavigation } from "./state/navigation.js";
 import { utilsAtom } from "./state/utils.js";
 import AciiArtPanel from "./ui/panels/AsciiArtPanel.js";
 import CommandBar from "./ui/panels/CommandBar.js";
@@ -12,7 +12,6 @@ import DebugPanel from "./ui/panels/DebugPanel.js";
 import Menu from "./ui/panels/MenuPanel.js";
 import UserPanel from "./ui/panels/UserPanel.js";
 import { Gur6 } from "./ui/prompts/GURPrompts.js";
-import { Dogo, Fuuuu, Rip } from "./ui/prompts/LegacyPrompts.js";
 
 const App = ({ cli }: { cli: Cli }) => {
 	// Make cli values available globally
@@ -53,7 +52,7 @@ const App = ({ cli }: { cli: Cli }) => {
 		dimensionsMode
 	);
 
-	const mainPanel = useAtomValue(mainPanelAtom);
+	const { primaryPanel } = useNavigation();
 
 	return (
 		<Box
@@ -65,25 +64,13 @@ const App = ({ cli }: { cli: Cli }) => {
 			<Box flexDirection="row" height={"100%"}>
 				<Menu />
 				<UserPanel />
-				{<DebugPanel visible={mainPanel === "debug"} />}
+				{<DebugPanel visible={primaryPanel === PrimaryPanel.Debug} />}
 				{
-					<AciiArtPanel flexShrink={0} visible={mainPanel === "gur"}>
+					<AciiArtPanel
+						flexShrink={0}
+						visible={primaryPanel === PrimaryPanel.Art}
+					>
 						<Gur6 />
-					</AciiArtPanel>
-				}
-				{
-					<AciiArtPanel flexShrink={0} visible={mainPanel === "dogo"}>
-						<Dogo />
-					</AciiArtPanel>
-				}
-				{
-					<AciiArtPanel flexShrink={0} visible={mainPanel === "fuuuu"}>
-						<Fuuuu />
-					</AciiArtPanel>
-				}
-				{
-					<AciiArtPanel flexShrink={0} visible={mainPanel === "rip"}>
-						<Rip />
 					</AciiArtPanel>
 				}
 			</Box>

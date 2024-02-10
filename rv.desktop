@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Ruokavälitys
+GenericName=RV
+Comment=TKO-äly Ruokavälitys
+Exec=kitty --start-as fullscreen rv --dimensions dynamic
+Terminal=false
+Type=Application
+Categories=ConsoleOnly;System;
+Icon=utilities-terminal

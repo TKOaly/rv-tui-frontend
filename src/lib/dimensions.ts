@@ -1,8 +1,7 @@
 import type { DOMElement } from "ink";
 import { measureElement, useStdout } from "ink";
-import { useAtomValue } from "jotai";
 import { useEffect, useRef, useState } from "react";
-import { mainPanelAtom } from "../state/navigation.js";
+import { useNavigation } from "../state/navigation.js";
 
 type Dimensions = {
 	width: number;
@@ -74,7 +73,7 @@ export const useMeasurements = ([...deps] = []) => {
 	);
 
 	const { width, height } = useDynamicDimensions();
-	const mainPanel = useAtomValue(mainPanelAtom);
+	const { primaryPanel } = useNavigation();
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -82,7 +81,7 @@ export const useMeasurements = ([...deps] = []) => {
 				setMeasurements(measureElement(ref.current));
 			}
 		}, 5);
-	}, [ref.current, width, height, mainPanel, ...deps]);
+	}, [ref.current, width, height, primaryPanel, ...deps]);
 
 	return { ref, ...measurements };
 };
