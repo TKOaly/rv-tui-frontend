@@ -27,7 +27,8 @@ const App = ({ cli }: { cli: Cli }) => {
 	const {
 		dimensions: dimensionsMode,
 		width: staticWidth,
-		height: staticHeight
+		height: staticHeight,
+		debug
 	} = cli.flags;
 
 	// Get the initial dimensions of the terminal
@@ -47,8 +48,8 @@ const App = ({ cli }: { cli: Cli }) => {
 	 * Hook returns a reactive width and height if dimensionsMode is "dynamic"
 	 */
 	const { width, height } = useDimensions(
-		dimensionsMode === "static" ? staticWidth ?? 100 : initialWidth,
-		dimensionsMode === "static" ? staticHeight ?? 28 : initialHeight,
+		dimensionsMode === "static" || debug ? staticWidth ?? 100 : initialWidth,
+		dimensionsMode === "static" || debug ? staticHeight ?? 28 : initialHeight,
 		dimensionsMode
 	);
 
