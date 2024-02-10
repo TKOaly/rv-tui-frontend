@@ -1,4 +1,5 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
+import { atomWithReset, useResetAtom } from "jotai/utils";
 
 /**
  * Enum corresponding to larger panels that require more space or are prioritized above secondary panels.
@@ -44,7 +45,7 @@ export type NavigationState = {
 /**
  * Stores which panels should be displayed
  */
-const navigationAtom = atom<NavigationState>({
+const navigationAtom = atomWithReset<NavigationState>({
 	primaryPanel: PrimaryPanel.Art,
 	secondaryPanel: SecondaryPanel.User,
 	showSecondary: true
@@ -58,9 +59,11 @@ const navigation = atom(
 );
 
 /**
- * Returns the current navigation state and a function to update it
+ * Returns the current navigation state and a functions to update and reset it.
+ * Update Function can be given partial state to update.
  */
 export const useNavigation = () => ({
 	...useAtomValue(navigation),
-	setNavigation: useSetAtom(navigation)
+	setNavigation: useSetAtom(navigation),
+	resetNavigation: useResetAtom(navigationAtom)
 });

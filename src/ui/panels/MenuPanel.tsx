@@ -1,4 +1,5 @@
 import { Box, Text, useInput } from "ink";
+import { RESET } from "jotai/utils";
 import { PrimaryPanel, useNavigation } from "../../state/navigation.js";
 import { useStyles } from "../../state/style.js";
 
@@ -7,17 +8,23 @@ import { useStyles } from "../../state/style.js";
  * @returns {JSX.Element}
  */
 const MenuPanel = () => {
-	const commands: Record<string, PrimaryPanel> = {
-		a: PrimaryPanel.Art,
-		d: PrimaryPanel.Debug
-	};
-
 	const styles = useStyles();
-	const { setNavigation } = useNavigation();
+	const { setNavigation, resetNavigation } = useNavigation();
+
+	const commands: Record<string, PrimaryPanel | typeof RESET> = {
+		a: PrimaryPanel.Art,
+		d: PrimaryPanel.Debug,
+		r: RESET
+	};
 
 	useInput(input => {
 		if (commands[input]! in PrimaryPanel) {
-			setNavigation({ primaryPanel: commands[input] ?? null });
+			setNavigation({
+				primaryPanel: (commands[input] as PrimaryPanel) ?? null
+			});
+		}
+		if (commands[input] === RESET) {
+			resetNavigation();
 		}
 	});
 
