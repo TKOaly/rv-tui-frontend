@@ -26,13 +26,13 @@ const Barcode = ({
 	numbers = false,
 	transparent = false,
 	errorOnInvalid = false,
+	color,
+	backgroundColor,
 	...rest
 }: OwnProps) => {
 	const padding = numbers && desiredPadding < 2 ? 2 : desiredPadding;
-	const foregroundColor = rest.color ?? "black";
-	const backgroundColor = transparent
-		? undefined
-		: rest.backgroundColor ?? "white";
+	const foreground = color ?? "black";
+	const background = transparent ? undefined : backgroundColor ?? "white";
 
 	// ToDo: Add actual EAN validation
 	const length = EAN.toString().length;
@@ -70,23 +70,14 @@ const Barcode = ({
 		>
 			{[...Array(!numbers ? height : (height ?? 0) - 1)].map((_, i) => (
 				// Top part of the barcode (without numberline)
-				<Text
-					key={i}
-					backgroundColor={backgroundColor}
-					color={foregroundColor}
-					{...rest}
-				>
+				<Text key={i} backgroundColor={background} color={foreground} {...rest}>
 					{" ".repeat(padding) + lineRow + " ".repeat(padding)}
 				</Text>
 			))}
 
 			{numbers && (
 				// Bottom part of the barcode (numberline)
-				<Text
-					backgroundColor={backgroundColor}
-					color={foregroundColor}
-					{...rest}
-				>
+				<Text backgroundColor={background} color={foreground} {...rest}>
 					{" ".repeat(padding - 2) +
 						(firstDigit ?? " ") +
 						" " +

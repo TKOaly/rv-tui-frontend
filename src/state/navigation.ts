@@ -1,5 +1,6 @@
-import { atom, useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import { atomWithReset, useResetAtom } from "jotai/utils";
+import { usePartialSetAtom } from "./atomUtils.js";
 
 /**
  * Enum corresponding to larger panels that require more space or are prioritized above secondary panels.
@@ -51,19 +52,12 @@ const navigationAtom = atomWithReset<NavigationState>({
 	showSecondary: true
 });
 
-const navigation = atom(
-	get => get(navigationAtom),
-	(get, set, update: Partial<NavigationState>) => {
-		set(navigationAtom, { ...get(navigationAtom), ...update });
-	}
-);
-
 /**
  * Returns the current navigation state and a functions to update and reset it.
  * Update Function can be given partial state to update.
  */
 export const useNavigation = () => ({
-	...useAtomValue(navigation),
-	setNavigation: useSetAtom(navigation),
+	...useAtomValue(navigationAtom),
+	setNavigation: usePartialSetAtom(navigationAtom),
 	resetNavigation: useResetAtom(navigationAtom)
 });

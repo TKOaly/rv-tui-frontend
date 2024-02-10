@@ -1,7 +1,6 @@
 import { Box, Text } from "ink";
-import { useAtomValue } from "jotai";
 import { useStyles } from "../../state/style.js";
-import { userAtom } from "../../state/user.js";
+import { useUser } from "../../state/user.js";
 import BorderBox from "../components/boxes/BorderBox.js";
 
 type OwnProps = {
@@ -10,7 +9,7 @@ type OwnProps = {
 
 const UserPanel = ({ visible = true, children, ...rest }: OwnProps) => {
 	const styles = useStyles();
-	const user = useAtomValue(userAtom);
+	const user = useUser();
 	return (
 		<Box
 			borderStyle={styles.borderStyle}
