@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import type { PanelProps } from "../../lib/types.js";
 import Barcode from "../components/Barcode.js";
 import BorderBox from "../components/boxes/BorderBox.js";
-import LayoutBox from "../components/boxes/LayoutBox.js";
-import { TabBox, TabHeader } from "../components/tabs/TabBox.js";
+import { TabBox } from "../components/tabs/TabBox.js";
+import { Gur6 } from "../prompts/GURPrompts.js";
 
 const DebugPanel = ({ visible }: PanelProps) => {
 	const [timer, setTimer] = useState(0);
@@ -20,7 +20,7 @@ const DebugPanel = ({ visible }: PanelProps) => {
 		<TabBox
 			title="Debug"
 			flexDirection="row"
-			flexGrow={20}
+			flexGrow={100}
 			width={"100%"}
 			flexShrink={0}
 			overflowY="hidden"
@@ -33,12 +33,12 @@ const DebugPanel = ({ visible }: PanelProps) => {
 			<BorderBox>
 				<Text>100ms: {timer}</Text>
 			</BorderBox>
-			<TabHeader title="Debug" />
-			<LayoutBox>
-				<TabBox title="testing" flexWrap="wrap">
-					<Text>Debugging Debugging</Text>
-				</TabBox>
-			</LayoutBox>
+			<TabBox title="Ascii Art" flexWrap="wrap">
+				<Text>Debugging Debugging</Text>
+			</TabBox>
+			<TabBox title="testing">
+				<Gur6 />
+			</TabBox>
 		</TabBox>
 	);
 };

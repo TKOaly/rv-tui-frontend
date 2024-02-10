@@ -5,6 +5,7 @@ import { useDimensions } from "./lib/dimensions.js";
 import type { Cli } from "./rv.js";
 import { cliAtom } from "./state/cli.js";
 import { PrimaryPanel, useNavigation } from "./state/navigation.js";
+import { useUser } from "./state/user.js";
 import { utilsAtom } from "./state/utils.js";
 import AciiArtPanel from "./ui/panels/AsciiArtPanel.js";
 import CommandBar from "./ui/panels/Bar/Bar.js";
@@ -54,6 +55,7 @@ const App = ({ cli }: { cli: Cli }) => {
 	);
 
 	const { primaryPanel } = useNavigation();
+	const user = useUser();
 
 	return (
 		<Box
@@ -64,7 +66,7 @@ const App = ({ cli }: { cli: Cli }) => {
 		>
 			<Box flexDirection="row" height={"100%"}>
 				<Menu />
-				<UserPanel />
+				{user && <UserPanel />}
 				{<DebugPanel visible={primaryPanel === PrimaryPanel.Debug} />}
 				{
 					<AciiArtPanel
