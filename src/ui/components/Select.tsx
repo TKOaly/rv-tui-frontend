@@ -1,5 +1,6 @@
 import { Box, Text, useInput, type Key } from "ink";
 import React, { useState } from "react";
+import { useNavigation } from "../../state/navigation.js";
 import { useStyles } from "../../state/style.js";
 
 type EnumOption = {
@@ -27,8 +28,13 @@ type OwnProps = {
 		up: keyof Key;
 		down: keyof Key;
 	};
+	selectedSymbol?: string;
+	focusedSymbol?: string;
 } & React.ComponentProps<typeof Box>;
 
+/**
+ * A select component that can be navigated with specified keys
+ */
 const Select = ({
 	options,
 	onChange,
@@ -36,6 +42,8 @@ const Select = ({
 	selectKey = "return",
 	navigationKeys = { up: "upArrow", down: "downArrow" },
 	defaultValue,
+	selectedSymbol = ">",
+	focusedSymbol = "*",
 	...rest
 }: OwnProps) => {
 	const { accentColor } = useStyles();
@@ -46,25 +54,27 @@ const Select = ({
 	const [selected, setSelected] = useState(
 		defaultValue !== undefined ? defaultOptionIndex : 0
 	);
-	const [current, setCurrent] = useState(
+	const [focused, setFocused] = useState(
 		defaultValue !== undefined ? defaultOptionIndex : 0
 	);
 
 	useInput((_, key) => {
 		if (selectKey && key[selectKey]) {
-			setSelected(current);
+			setSelected(focused);
 			onSelect && onSelect(options[selected]);
 			options[selected]?.onSelect !== undefined &&
 				options[selected]?.onSelect!();
 		}
 		if (key[navigationKeys.up]) {
-			setCurrent(Math.max(0, current - 1));
+			setFocused(Math.max(0, focused - 1));
 		}
 		if (key[navigationKeys.down]) {
-			setCurrent(Math.min(options.length - 1, current + 1));
-			onChange && onChange(options[current]);
+			setFocused(Math.min(options.length - 1, focused + 1));
+			onChange && onChange(options[focused]);
 		}
 	});
+
+	const { primaryPanel } = useNavigation();
 
 	return (
 		<Box flexDirection="column" alignItems="flex-start" {...rest}>
@@ -81,7 +91,7 @@ const Select = ({
 						color={
 							selected === index
 								? accentColor
-								: current === index
+								: focused === index
 								? "whiteBright"
 								: "white"
 						}
@@ -89,10 +99,15 @@ const Select = ({
 						{option.label}
 					</Text>
 					<Text color={selected === index ? accentColor : "whiteBright"}>
-						{selected === index ? "*" : current === index && ">"}
+						{selected === index
+							? selectedSymbol
+							: focused === index && focusedSymbol}
 					</Text>
 				</Box>
 			))}
+			<Text> </Text>
+			<Text>Panel:</Text>
+			<Text>{primaryPanel}</Text>
 		</Box>
 	);
 };
