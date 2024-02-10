@@ -1,7 +1,13 @@
-import { Box, Text, useFocus, useInput } from "ink";
-import { RESET } from "jotai/utils";
-import { PrimaryPanel, useNavigation } from "../../state/navigation.js";
+import { Box, useFocus } from "ink";
+import { Bar, useBar } from "../../state/bar.js";
+import {
+	PrimaryPanel,
+	SecondaryPanel,
+	useNavigation
+} from "../../state/navigation.js";
 import { useStyles } from "../../state/style.js";
+import { useLogoutUser } from "../../state/user.js";
+import Select, { Option, Options } from "../components/Select.js";
 
 /**
  * Houses the main navigation pane
@@ -10,24 +16,42 @@ import { useStyles } from "../../state/style.js";
 const MenuPanel = () => {
 	const { borderStyle, borderColor, accentColor } = useStyles();
 	const { isFocused } = useFocus();
-	const { setNavigation, resetNavigation } = useNavigation();
+	const { setNavigation } = useNavigation();
+	const logout = useLogoutUser();
+	const { setBar } = useBar();
 
-	const commands: Record<string, PrimaryPanel | typeof RESET> = {
-		a: PrimaryPanel.Art,
-		d: PrimaryPanel.Debug,
-		r: RESET
-	};
+	const commands: Options = [
+		{
+			label: "Logout",
+			value: PrimaryPanel.Gur,
+			onSelect: () => {
+				logout();
+				setBar({ bar: Bar.Login });
+				setNavigation({ secondaryPanel: SecondaryPanel.None });
+			}
+		},
+		{ label: "Debug", value: PrimaryPanel.Debug },
+		{ label: "Gur", value: PrimaryPanel.Gur },
+		{ label: "Dogo", value: PrimaryPanel.Art },
+		{ label: "Bottle Returns", value: PrimaryPanel.Returns },
+		{ label: "Deposit", value: PrimaryPanel.Deposit },
+		{ label: "Barcodes", value: PrimaryPanel.Barcodes },
+		{ label: "Check Price", value: PrimaryPanel.PriceCheck },
+		{ label: "New User", value: PrimaryPanel.NewUser },
+		{ label: "Wiki", value: PrimaryPanel.Wiki },
+		{ label: "Statistics", value: PrimaryPanel.Stats },
+		{ label: "Leaderboard", value: PrimaryPanel.Leaderboard },
+		{ label: "Account", value: PrimaryPanel.Account },
+		{ label: "Manage RFID", value: PrimaryPanel.RFID }
+	];
 
-	useInput(input => {
-		if (commands[input]! in PrimaryPanel) {
+	const onSelect = (option: Option | undefined) => {
+		if (option && option.value in PrimaryPanel) {
 			setNavigation({
-				primaryPanel: (commands[input] as PrimaryPanel) ?? null
+				primaryPanel: (option.value as PrimaryPanel) ?? null
 			});
 		}
-		if (commands[input] === RESET) {
-			resetNavigation();
-		}
-	});
+	};
 
 	return (
 		<Box
@@ -38,7 +62,12 @@ const MenuPanel = () => {
 			paddingX={1}
 			height={"100%"}
 		>
-			<Text>Test</Text>
+			<Select
+				width={Math.max(...commands.map(o => o.label.length)) + 4}
+				options={commands}
+				selectKey={undefined}
+				onSelect={onSelect}
+			/>
 		</Box>
 	);
 };

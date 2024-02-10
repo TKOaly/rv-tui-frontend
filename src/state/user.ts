@@ -29,6 +29,6 @@ export const useUser = () => useAtomValue(userAtom);
  * This is used to log out the user
  * @todo should also reset navigation and bar states
  */
-export const useResetUser = () => useResetAtom(userAtom);
+export const useLogoutUser = () => useResetAtom(userAtom);
 
 export const useLoginUser = () => useSetAtom(userLoginAtom);

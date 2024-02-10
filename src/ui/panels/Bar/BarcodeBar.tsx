@@ -10,7 +10,7 @@ const BarcodeBar = () => {
 			placeholder="Read Barcode:"
 			isDisabled={barcode !== undefined}
 			onSubmit={barcode => {
-				setBarcode(barcode);
+				(barcode.length === 8 || barcode.length === 13) && setBarcode(barcode);
 				setTimeout(() => {
 					setBarcode(undefined);
 				}, 2000);

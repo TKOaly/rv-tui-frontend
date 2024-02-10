@@ -73,7 +73,7 @@ export const useMeasurements = ([...deps] = []) => {
 	);
 
 	const { width, height } = useDynamicDimensions();
-	const { primaryPanel } = useNavigation();
+	const { primaryPanel, secondaryPanel } = useNavigation();
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -81,7 +81,7 @@ export const useMeasurements = ([...deps] = []) => {
 				setMeasurements(measureElement(ref.current));
 			}
 		}, 5);
-	}, [ref.current, width, height, primaryPanel, ...deps]);
+	}, [ref.current, width, height, primaryPanel, secondaryPanel, ...deps]);
 
 	return { ref, ...measurements };
 };

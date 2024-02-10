@@ -1,5 +1,7 @@
 # rv-tui-frontend
 
+![rv](./rv.png)
+
 ## Setup
 
 ### Prerequisites

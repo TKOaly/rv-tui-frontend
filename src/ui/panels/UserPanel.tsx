@@ -18,10 +18,11 @@ const UserPanel = ({ visible = true, children, ...rest }: OwnProps) => {
 			alignItems="center"
 			justifyContent="space-between"
 			flexShrink={0}
+			paddingX={1}
 			height={"100%"}
 			{...rest}
 		>
-			<Box flexDirection="column">
+			<Box flexDirection="column" alignItems="center">
 				<Text>Hello {user?.username}!</Text>
 				<Text>-----------------------</Text>
 			</Box>
@@ -31,6 +32,7 @@ const UserPanel = ({ visible = true, children, ...rest }: OwnProps) => {
 					flexDirection="row"
 					justifyContent="space-between"
 					width={"100%"}
+					paddingX={1}
 				>
 					<Text>Saldo:</Text>
 					<Text>100€</Text>

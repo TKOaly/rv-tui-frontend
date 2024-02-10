@@ -15,7 +15,14 @@
 	},
 	"plugins": ["@typescript-eslint", "react"],
 	"rules": {
-		"indent": ["error", "tab", { "SwitchCase": 1 }],
+		"indent": [
+			"error",
+			"tab",
+			{
+				"SwitchCase": 1,
+				"FlatTernaryExpressions": true
+			}
+		],
 		"linebreak-style": ["error", "unix"],
 		"quotes": ["error", "double"],
 		"semi": ["error", "always"],

@@ -1,6 +1,7 @@
 import { PasswordInput, TextInput } from "@inkjs/ui";
 import { useState } from "react";
 import { Bar, useBar } from "../../../state/bar.js";
+import { SecondaryPanel, useNavigation } from "../../../state/navigation.js";
 import { useLoginUser } from "../../../state/user.js";
 
 enum BarState {
@@ -12,6 +13,7 @@ enum BarState {
 const LoginBar = () => {
 	const login = useLoginUser();
 	const { setBar } = useBar();
+	const { setNavigation } = useNavigation();
 
 	const [activeInput, setActiveInput] = useState(BarState.userName);
 	const [username, setUsername] = useState<string>("");
@@ -22,6 +24,7 @@ const LoginBar = () => {
 				<TextInput
 					placeholder="Type username:"
 					onSubmit={username => {
+						if (username === "") return;
 						setUsername(username);
 						setActiveInput(BarState.password);
 					}}
@@ -30,11 +33,13 @@ const LoginBar = () => {
 			{activeInput === BarState.password && (
 				<PasswordInput
 					placeholder="Type password:"
-					onSubmit={value => {
-						login({ username: username, password: value });
+					onSubmit={password => {
+						if (password === "") return;
+						login({ username: username, password: password });
 						setUsername("");
 						setActiveInput(BarState.userName);
 						setBar({ bar: Bar.Barcode });
+						setNavigation({ secondaryPanel: SecondaryPanel.User });
 					}}
 				/>
 			)}

@@ -4,8 +4,11 @@ import { useEffect, useState } from "react";
 import { useDimensions } from "./lib/dimensions.js";
 import type { Cli } from "./rv.js";
 import { cliAtom } from "./state/cli.js";
-import { PrimaryPanel, useNavigation } from "./state/navigation.js";
-import { useUser } from "./state/user.js";
+import {
+	PrimaryPanel,
+	SecondaryPanel,
+	useNavigation
+} from "./state/navigation.js";
 import { utilsAtom } from "./state/utils.js";
 import AciiArtPanel from "./ui/panels/AsciiArtPanel.js";
 import CommandBar from "./ui/panels/Bar/Bar.js";
@@ -13,6 +16,7 @@ import DebugPanel from "./ui/panels/DebugPanel.js";
 import Menu from "./ui/panels/MenuPanel.js";
 import UserPanel from "./ui/panels/UserPanel.js";
 import { Gur6 } from "./ui/prompts/GURPrompts.js";
+import { Dogo } from "./ui/prompts/LegacyPrompts.js";
 
 const App = ({ cli }: { cli: Cli }) => {
 	// Make cli values available globally
@@ -54,8 +58,7 @@ const App = ({ cli }: { cli: Cli }) => {
 		dimensionsMode
 	);
 
-	const { primaryPanel } = useNavigation();
-	const user = useUser();
+	const { primaryPanel, secondaryPanel } = useNavigation();
 
 	return (
 		<Box
@@ -66,16 +69,15 @@ const App = ({ cli }: { cli: Cli }) => {
 		>
 			<Box flexDirection="row" height={"100%"}>
 				<Menu />
-				{user && <UserPanel />}
-				{<DebugPanel visible={primaryPanel === PrimaryPanel.Debug} />}
-				{
-					<AciiArtPanel
-						flexShrink={0}
-						visible={primaryPanel === PrimaryPanel.Art}
-					>
-						<Gur6 />
-					</AciiArtPanel>
-				}
+				{secondaryPanel === SecondaryPanel.User && <UserPanel />}
+				<DebugPanel visible={primaryPanel === PrimaryPanel.Debug} />
+
+				<AciiArtPanel visible={primaryPanel === PrimaryPanel.Gur}>
+					<Gur6 />
+				</AciiArtPanel>
+				<AciiArtPanel visible={primaryPanel === PrimaryPanel.Art}>
+					<Dogo />
+				</AciiArtPanel>
 			</Box>
 			<CommandBar />
 		</Box>

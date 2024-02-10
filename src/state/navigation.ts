@@ -26,7 +26,8 @@ export enum PrimaryPanel {
 	Receipt = 16,
 	Search = 17,
 	Error = 18,
-	Leaderboard = 19
+	Leaderboard = 19,
+	Gur = 20
 }
 
 /**
@@ -47,8 +48,8 @@ export type NavigationState = {
  * Stores which panels should be displayed
  */
 const navigationAtom = atomWithReset<NavigationState>({
-	primaryPanel: PrimaryPanel.Art,
-	secondaryPanel: SecondaryPanel.User,
+	primaryPanel: PrimaryPanel.Gur,
+	secondaryPanel: SecondaryPanel.None,
 	showSecondary: true
 });
 

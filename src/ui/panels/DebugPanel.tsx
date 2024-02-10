@@ -33,10 +33,10 @@ const DebugPanel = ({ visible }: PanelProps) => {
 			<BorderBox>
 				<Text>100ms: {timer}</Text>
 			</BorderBox>
-			<TabBox title="Ascii Art" flexWrap="wrap">
-				<Text>Debugging Debugging</Text>
+			<TabBox title="Header" flexWrap="wrap">
+				<Text>Tab Content</Text>
 			</TabBox>
-			<TabBox title="testing">
+			<TabBox title="Ascii Art" headerPosition={3}>
 				<Gur6 />
 			</TabBox>
 		</TabBox>
