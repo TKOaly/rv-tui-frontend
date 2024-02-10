@@ -55,6 +55,8 @@ const cli = meow(
 
 						Console is not patched by ink so process
 						error messages are not intercepted and discraded
+
+						Ctrl + C is allowed to exit the process
       `,
 	{
 		importMeta: import.meta,
@@ -86,5 +88,5 @@ const cli = meow(
 
 render(<App cli={cli} />, {
 	patchConsole: cli.flags.debug ? false : true,
-	debug: cli.flags.debug
+	exitOnCtrlC: cli.flags.debug ? true : false
 });
