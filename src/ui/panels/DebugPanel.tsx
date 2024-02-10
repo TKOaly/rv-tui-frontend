@@ -2,8 +2,8 @@ import { Text } from "ink";
 import { useEffect, useState } from "react";
 import type { PanelProps } from "../../lib/types.js";
 import Barcode from "../components/Barcode.js";
-import BorderBox from "../components/BorderBox.js";
-import LayoutBox from "../components/LayoutBox.js";
+import BorderBox from "../components/boxes/BorderBox.js";
+import LayoutBox from "../components/boxes/LayoutBox.js";
 import { TabBox, TabHeader } from "../components/tabs/TabBox.js";
 
 const DebugPanel = ({ visible }: PanelProps) => {

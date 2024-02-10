@@ -2,7 +2,7 @@ import { Box, Text } from "ink";
 import { useAtomValue } from "jotai";
 import { useStyles } from "../../state/style.js";
 import { userAtom } from "../../state/user.js";
-import BorderBox from "../components/BorderBox.js";
+import BorderBox from "../components/boxes/BorderBox.js";
 
 type OwnProps = {
 	visible?: boolean;

@@ -1,4 +1,4 @@
-import { Box, Text, useInput } from "ink";
+import { Box, Text, useFocus, useInput } from "ink";
 import { RESET } from "jotai/utils";
 import { PrimaryPanel, useNavigation } from "../../state/navigation.js";
 import { useStyles } from "../../state/style.js";
@@ -8,7 +8,8 @@ import { useStyles } from "../../state/style.js";
  * @returns {JSX.Element}
  */
 const MenuPanel = () => {
-	const styles = useStyles();
+	const { borderStyle, borderColor, accentColor } = useStyles();
+	const { isFocused } = useFocus();
 	const { setNavigation, resetNavigation } = useNavigation();
 
 	const commands: Record<string, PrimaryPanel | typeof RESET> = {
@@ -30,8 +31,8 @@ const MenuPanel = () => {
 
 	return (
 		<Box
-			borderStyle={styles.borderStyle}
-			borderColor={styles.borderColor}
+			borderStyle={borderStyle}
+			borderColor={isFocused ? accentColor : borderColor}
 			flexDirection="column"
 			flexShrink={0}
 			paddingX={1}

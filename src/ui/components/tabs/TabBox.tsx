@@ -2,8 +2,8 @@ import type { DOMElement } from "ink";
 import { Box, Text } from "ink";
 import { useMeasurements } from "../../../lib/dimensions.js";
 import { useStyles } from "../../../state/style.js";
-import BorderBox from "../BorderBox.js";
-import LayoutBox from "../LayoutBox.js";
+import BorderBox from "../boxes/BorderBox.js";
+import LayoutBox from "../boxes/LayoutBox.js";
 
 type HeaderProps = {
 	title: string;

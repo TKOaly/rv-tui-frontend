@@ -1,4 +1,4 @@
-import BorderBox from "../components/BorderBox.js";
+import BorderBox from "../components/boxes/BorderBox.js";
 
 type OwnProps = {
 	visible: boolean;
