@@ -13,7 +13,7 @@ export enum PrimaryPanel {
 	Barcodes = 3,
 	PriceCheck = 4,
 	NewUser = 5,
-	Stats = 6,
+	Purchases = 6,
 	Account = 7,
 	RFID = 8,
 	Debug = 9,
@@ -27,7 +27,8 @@ export enum PrimaryPanel {
 	Search = 17,
 	Error = 18,
 	Leaderboard = 19,
-	Gur = 20
+	Gur = 20,
+	Coffee = 21
 }
 
 /**

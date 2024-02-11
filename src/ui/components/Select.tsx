@@ -60,14 +60,15 @@ const Select = ({
 			width={
 				rest.width ??
 				Math.max(
+					// Get the width of the longest option
 					...options
 						.map(o => o.label.split("\n"))
-						.reduce((c, l) => c.concat([...l]))
+						.reduce((c, l) => c.concat(Array.isArray(l) ? [...l] : [l]), [])
 						.map(l => l.length)
 				) +
 					1 +
 					gap
-			} // Get the width of the longest option
+			}
 			{...rest}
 		>
 			{options.map((option, index) => (
