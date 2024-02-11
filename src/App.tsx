@@ -9,6 +9,7 @@ import {
 	SecondaryPanel,
 	useNavigation
 } from "./state/navigation.js";
+import { useUser } from "./state/user.js";
 import { utilsAtom } from "./state/utils.js";
 import AciiArtPanel from "./ui/panels/AsciiArtPanel.js";
 import CommandBar from "./ui/panels/Bar/Bar.js";
@@ -60,6 +61,7 @@ const App = ({ cli }: { cli: Cli }) => {
 	);
 
 	const { primaryPanel, secondaryPanel } = useNavigation();
+	const user = useUser();
 
 	return (
 		<Box
@@ -70,7 +72,7 @@ const App = ({ cli }: { cli: Cli }) => {
 		>
 			<Box flexDirection="row" height={"100%"} alignItems="flex-start">
 				<Menu />
-				{secondaryPanel === SecondaryPanel.User && <UserPanel />}
+				{secondaryPanel === SecondaryPanel.User && <UserPanel user={user} />}
 				{primaryPanel === PrimaryPanel.Debug && <DebugPanel />}
 				<AciiArtPanel visible={primaryPanel === PrimaryPanel.Gur}>
 					<Gur6 />

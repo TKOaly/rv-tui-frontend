@@ -1,4 +1,4 @@
-/* User Queries */
+/* User Requests */
 
 import axios from "axios";
 

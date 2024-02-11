@@ -3,13 +3,14 @@ import { useStyles } from "../../state/style.js";
 import { useUser } from "../../state/user.js";
 import BorderBox from "../components/boxes/BorderBox.js";
 
-type OwnProps = {
-	visible?: boolean;
-} & React.ComponentProps<typeof BorderBox>;
+type OwnProps = {} & React.ComponentProps<typeof BorderBox>;
 
-const UserPanel = ({ visible = true, children, ...rest }: OwnProps) => {
+const UserPanel = ({ children, ...rest }: OwnProps) => {
 	const styles = useStyles();
 	const user = useUser();
+
+	if (!user) return null;
+
 	return (
 		<Box
 			borderStyle={styles.borderStyle}
@@ -23,7 +24,7 @@ const UserPanel = ({ visible = true, children, ...rest }: OwnProps) => {
 			{...rest}
 		>
 			<Box flexDirection="column" alignItems="center">
-				<Text>Hello {user?.username}!</Text>
+				<Text>Hello {user.username}!</Text>
 				<Text>-----------------------</Text>
 			</Box>
 			<Box flexDirection="column-reverse" width={"100%"}>
@@ -35,7 +36,7 @@ const UserPanel = ({ visible = true, children, ...rest }: OwnProps) => {
 					paddingX={1}
 				>
 					<Text>Saldo:</Text>
-					<Text>100€</Text>
+					<Text>{user.moneyBalance}</Text>
 				</BorderBox>
 			</Box>
 		</Box>

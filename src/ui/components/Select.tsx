@@ -58,7 +58,15 @@ const Select = ({
 			flexDirection="column"
 			alignItems="flex-start"
 			width={
-				rest.width ?? Math.max(...options.map(o => o.label.length)) + 1 + gap
+				rest.width ??
+				Math.max(
+					...options
+						.map(o => o.label.split("\n"))
+						.reduce((c, l) => c.concat([...l]))
+						.map(l => l.length)
+				) +
+					1 +
+					gap
 			} // Get the width of the longest option
 			{...rest}
 		>

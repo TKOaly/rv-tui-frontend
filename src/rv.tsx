@@ -104,6 +104,6 @@ Options
 
 render(<App cli={cli} />, {
 	patchConsole: cli.flags.debug ? false : true,
-	exitOnCtrlC: cli.flags.unlock || cli.flags.debug ? true : false
-	// debug: cli.flags.debug // enable for ink debug mode (full refresh on every render)
+	exitOnCtrlC: cli.flags.unlock || cli.flags.debug ? true : false,
+	debug: cli.flags.debug // enable for ink debug mode (full refresh on every render)
 });

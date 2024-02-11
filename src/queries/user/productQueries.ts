@@ -1,5 +1,6 @@
+/* Product Requests */
+
 import axios from "axios";
-/* Product Queries */
 
 type BuyProductResponse = {
 	accountBalance: number;
