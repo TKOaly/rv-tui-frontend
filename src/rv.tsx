@@ -26,37 +26,47 @@ export type Cli = Result<Flags>;
 
 const cli = meow(
 	`
-    TKO-äly ry RV
+TKO-äly ry RV
 
-	Usage
+Usage
 
-        $ rv
-      
-    Options
+	$ rv
+
+Options
     
-        --dimensions [mode]		Set the dimensions mode of the user interface
+	--dimensions, -d [mode]		Set the dimensions mode of the user interface
 
-			available modes:
-				"initial":	Default, Dimensions set to terminal size on startup
-				"static":	Default is 100x28 (terminal dimensions of old RV)
-						Can be set manually with --weight and --height
-				"dynamic":	Dimensions are updated dynamically when the terminal is resized
+		available modes:
+			"initial":	Default, Dimensions set to terminal size on startup
+			"static":	Default is 100x28 (terminal dimensions of old RV)
+					Can be set manually with --weight and --height
+			"dynamic":	Dimensions are updated dynamically when the terminal is resized
         
-        --width [width]		Set the width of the user interface
-						Only overrides the static width set by --dimensions
+	--width, -w [width]		Set the width of the user interface
+
+					Only overrides the static width set by --dimensions
         
-        --height [height]		Set the height of the user interface
-						Only overrides the static height set by --dimensions
+	--height, -h [height]		Set the height of the user interface
 
-		--debug				Enables debug mode
+					Only overrides the static height set by --dimensions
 
-						Dimensions are set to static in order to
-						not clear process output
+	--debug, -x			Enables debug mode
 
-						Console is not patched by ink so process
-						error messages are not intercepted and discraded
+					Dimensions are set to static in order to
+					not clear process output
 
-						Ctrl + C is allowed to exit the process
+					Console is not patched by ink so process
+					error messages are not intercepted and discraded
+
+					Ctrl + C is allowed to exit the process
+
+					An exit command is inlcuded in the UI
+
+	--unlock, -u
+
+					Ctrl + C is allowed to exit the process
+
+					An exit command is inlcuded in the UI
       `,
 	{
 		importMeta: import.meta,
@@ -79,7 +89,12 @@ const cli = meow(
 			},
 			debug: {
 				type: "boolean",
-				shortFlag: "d",
+				shortFlag: "x",
+				default: false
+			},
+			unlock: {
+				type: "boolean",
+				shortFlag: "u",
 				default: false
 			}
 		}
@@ -88,5 +103,5 @@ const cli = meow(
 
 render(<App cli={cli} />, {
 	patchConsole: cli.flags.debug ? false : true,
-	exitOnCtrlC: cli.flags.debug ? true : false
+	exitOnCtrlC: cli.flags.unlock || cli.flags.debug ? true : false
 });

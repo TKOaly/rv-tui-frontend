@@ -4,7 +4,7 @@ const targetUrl = "api/v1/admin/boxes";
 
 const getAll = token => {
 	return axios
-		.get(`${process.env.REACT_APP_BACKEND_URL}/${targetUrl}`, {
+		.get(`${process.env.RV_BACKEND_URL}/${targetUrl}`, {
 			headers: { Authorization: "Bearer " + token }
 		})
 		.then(res => res.data.boxes);
@@ -14,7 +14,7 @@ const addStock = (_barcode, _box, _token) => {
 	return Promise.reject("Unimplemented: boxService.addStock");
 	/*return axios
         .post(
-            `${process.env.REACT_APP_BACKEND_URL}/${targetUrl}/${barcode}/buyIn`,
+            `${process.env.RV_BACKEND_URL}/${targetUrl}/${barcode}/buyIn`,
             {
                 productBuyPrice: box.productBuyPrice,
                 productSellPrice: box.productSellPrice,
@@ -28,7 +28,7 @@ const addStock = (_barcode, _box, _token) => {
 };
 
 const createBox = (token, barcode, productCount, product) => {
-	return axios(`${process.env.REACT_APP_BACKEND_URL}/${targetUrl}`, {
+	return axios(`${process.env.RV_BACKEND_URL}/${targetUrl}`, {
 		method: "POST",
 		headers: { Authorization: "Bearer " + token },
 		data: {
@@ -46,18 +46,15 @@ const buyInBox = (
 	productBuyPrice,
 	productSellPrice
 ) => {
-	return axios(
-		`${process.env.REACT_APP_BACKEND_URL}/${targetUrl}/${barcode}/buyIn`,
-		{
-			method: "POST",
-			headers: { Authorization: "Bearer " + token },
-			data: {
-				boxCount,
-				productBuyPrice,
-				productSellPrice
-			}
+	return axios(`${process.env.RV_BACKEND_URL}/${targetUrl}/${barcode}/buyIn`, {
+		method: "POST",
+		headers: { Authorization: "Bearer " + token },
+		data: {
+			boxCount,
+			productBuyPrice,
+			productSellPrice
 		}
-	).then(res => res.data);
+	}).then(res => res.data);
 };
 
 export default {

@@ -9,28 +9,43 @@
 - install `node` and `npm`
 - install, configure and start [`rv-backend`](https://github.com/TKOaly/rv-backend)
 
-### Frontend
+### Install
 
 ```bash
 $
 git clone git@github.com:TKOaly/rv-tui-frontend.git
 cd rv-tui-frontend
 npm install
-npm run build
-npm link
 ```
 
 Copy `.env.example` to `.env` and modify it to your environment
 
-After this the app can be lauched with
+### Development
+
+Start the build and and UI processes in parallel
+
+```bash
+$ npm run build:watch
+---
+$ npm run start:watch
+```
+
+Or in one command (compiler errors not visible)
 
 ```bash
 $ npm run dev
 ```
 
+### Building
+
 ```bash
-$ rv
+$
+npm run build
+npm link
+rv
 ```
+
+`rv` is available globally and thus requires environment variables to be set for backend connection.
 
 ## Project structure
 
@@ -40,7 +55,7 @@ Styling and layout are unconventional but hooks and other main react features wo
 Local state management should be kept at a minimum for maintainability and panels/views/layouts should mosty handle their own state.
 [`Jotai`](https://jotai.org/docs/core/use-atom) is used for atomic states where abolutely necessary. [`React Query`](https://tanstack.com/query/latest/docs/framework/react/overview#enough-talk-show-me-some-code-already) should be used to handle server state and a lot of the stage management can be relegated to it.
 
-Good API documentation can be built from the backend's OpenApi spec
+Good API documentation can be built from the backend's OpenApi spec e.g. with an IDE extension.
 
 ```
 src
@@ -91,4 +106,4 @@ Will be implemented once the codebase is not horribly unstable.
 
 ## Code Style
 
-Linting with IDE extensions or NPM scripts, eslint and prettier config done in the project.
+Linting with IDE extensions or NPM scripts, eslint and prettier config are included in the project.

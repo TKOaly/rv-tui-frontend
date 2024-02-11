@@ -1,6 +1,6 @@
 {
 	"name": "rv",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"bin": "dist/rv.js",
 	"type": "module",
 	"private": true,
@@ -8,8 +8,12 @@
 		"node": ">=20"
 	},
 	"scripts": {
+		"start": "node --env-file=.env dist/rv.js --unlock",
+		"start:watch": "node --watch-path=dist --env-file=.env dist/rv.js --unlock",
 		"build": "tsc",
-		"dev": "tsc --watch",
+		"build:watch": "tsc --watch",
+		"dev": "npm run build:watch & npm run start:watch",
+		"test": "ava",
 		"lint": "prettier --check . && eslint . --ext .ts,.tsx",
 		"lint:fix": "prettier --write . && eslint . --ext .ts,.tsx --fix"
 	},
@@ -18,6 +22,7 @@
 	],
 	"dependencies": {
 		"@inkjs/ui": "^1.0.0",
+		"axios": "^1.6.7",
 		"ink": "^4.1.0",
 		"jotai": "^2.6.4",
 		"meow": "^11.0.0",
