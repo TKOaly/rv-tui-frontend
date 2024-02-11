@@ -7,7 +7,6 @@ import App from "./App.js";
 type Flags = {
 	dimensions: {
 		type: "string";
-		shortFlag: string;
 		default: string;
 		choices: string[];
 	};
@@ -18,6 +17,9 @@ type Flags = {
 		type: "number";
 	};
 	debug: {
+		type: "boolean";
+	};
+	unlock: {
 		type: "boolean";
 	};
 };
@@ -50,7 +52,7 @@ Options
 
 					Only overrides the static height set by --dimensions
 
-	--debug, -x			Enables debug mode
+	--debug				Enables debug mode
 
 					Dimensions are set to static in order to
 					not clear process output
@@ -89,12 +91,11 @@ Options
 			},
 			debug: {
 				type: "boolean",
-				shortFlag: "x",
 				default: false
 			},
 			unlock: {
 				type: "boolean",
-				shortFlag: "u",
+				alias: "u",
 				default: false
 			}
 		}
@@ -104,4 +105,5 @@ Options
 render(<App cli={cli} />, {
 	patchConsole: cli.flags.debug ? false : true,
 	exitOnCtrlC: cli.flags.unlock || cli.flags.debug ? true : false
+	// debug: cli.flags.debug // enable for ink debug mode (full refresh on every render)
 });

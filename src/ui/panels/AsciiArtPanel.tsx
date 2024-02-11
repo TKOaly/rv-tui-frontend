@@ -9,6 +9,7 @@ const AciiArtPanel = ({ visible, children, ...rest }: OwnProps) => (
 		overflow="hidden"
 		flexDirection="column"
 		flexGrow={20}
+		height={"100%"}
 		center={true}
 		display={visible ? "flex" : "none"}
 		{...rest}

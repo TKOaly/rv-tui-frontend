@@ -13,6 +13,10 @@ type HeaderProps = {
 	middle?: boolean;
 } & React.ComponentProps<typeof LayoutBox>;
 
+/**
+ * A header for a TabBox
+ * Also renders the top border for the TabBox as it is dependent on the position and width of the header
+ */
 export const TabHeader = ({
 	title,
 	padding = 1,
@@ -41,10 +45,10 @@ export const TabHeader = ({
 				<BorderBox
 					borderBottom={false}
 					flexWrap="nowrap"
-					flexShrink={0}
+					width={Math.min(headerWidth, width - position)}
 					paddingX={padding}
 				>
-					<Text>{title}</Text>
+					<Text wrap="truncate">{title}</Text>
 				</BorderBox>
 			</LayoutBox>
 			{width >= headerWidth + 2 && (
@@ -82,6 +86,10 @@ type TabBoxProps = {
 	ref?: React.Ref<DOMElement>;
 } & React.ComponentProps<typeof Box>;
 
+/**
+ * A box with a header that to display a title
+ * Doesn't handle bottom overflow that well
+ */
 export const TabBox = ({
 	title,
 	headerCentered = false,
@@ -95,20 +103,33 @@ export const TabBox = ({
 	const { ref, width } = useMeasurements();
 
 	return (
-		<LayoutBox align="left" flexDirection="column">
+		<LayoutBox
+			align="left"
+			flexDirection="column"
+			width={rest.width}
+			height={rest.height}
+			display={display}
+		>
 			<TabHeader
 				title={title}
 				width={width}
 				headerPosition={headerPosition}
 				middle={headerCentered}
-				display={display}
 			/>
 			<Box
 				ref={ref}
 				borderTop={false}
 				borderStyle={styles.borderStyle}
 				borderColor={styles.borderColor}
-				display={display}
+				overflow="hidden"
+				height={
+					// allow any height value to be passed
+					rest.height && rest.height === "100%"
+						? "100%"
+						: Number.isNaN(Number(rest.height))
+						? undefined
+						: (rest.height as number) - 2
+				}
 				{...rest}
 			>
 				{children}

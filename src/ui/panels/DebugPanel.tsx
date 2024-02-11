@@ -1,12 +1,11 @@
 import { Text } from "ink";
 import { useEffect, useState } from "react";
-import type { PanelProps } from "../../lib/types.js";
 import Barcode from "../components/Barcode.js";
 import BorderBox from "../components/boxes/BorderBox.js";
 import { TabBox } from "../components/tabs/TabBox.js";
 import { Gur6 } from "../prompts/GURPrompts.js";
 
-const DebugPanel = ({ visible }: PanelProps) => {
+const DebugPanel = () => {
 	const [timer, setTimer] = useState(0);
 
 	useEffect(() => {
@@ -22,14 +21,13 @@ const DebugPanel = ({ visible }: PanelProps) => {
 			flexDirection="row"
 			flexGrow={100}
 			width={"100%"}
-			flexShrink={0}
+			height={"100%"}
 			overflowY="hidden"
 			alignItems="flex-start"
 			justifyContent="flex-start"
 			flexWrap="wrap"
-			display={visible ? "flex" : "none"}
 		>
-			<Barcode EAN={4070071967072} height={6} numbers />
+			<Barcode EAN={40700719} height={6} numbers />
 			<BorderBox>
 				<Text>100ms: {timer}</Text>
 			</BorderBox>

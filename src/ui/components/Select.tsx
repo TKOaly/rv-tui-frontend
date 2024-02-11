@@ -1,22 +1,7 @@
 import { Box, Text, useInput, type Key } from "ink";
-import React, { useState } from "react";
-import { useNavigation } from "../../state/navigation.js";
+import React from "react";
+import useSelect, { Option, Options } from "../../lib/select.js";
 import { useStyles } from "../../state/style.js";
-
-type EnumOption = {
-	value: number;
-};
-
-type StringOption = {
-	value: string;
-};
-
-export type Option = {
-	label: string;
-	type?: number;
-	onSelect?: () => void;
-} & (EnumOption | StringOption);
-export type Options = Option[];
 
 type OwnProps = {
 	options: Options;
@@ -30,10 +15,14 @@ type OwnProps = {
 	};
 	selectedSymbol?: string;
 	focusedSymbol?: string;
+	gap?: number;
 } & React.ComponentProps<typeof Box>;
 
 /**
- * A select component that can be navigated with specified keys
+ * A vertical text select component that can be navigated with specified keys
+ * @param {OwnProps} props Items to be dispayed in the selection list and,
+ * action to be run on selection or focus change,
+ * default value, and navigation keys
  */
 const Select = ({
 	options,
@@ -43,41 +32,36 @@ const Select = ({
 	navigationKeys = { up: "upArrow", down: "downArrow" },
 	defaultValue,
 	selectedSymbol = ">",
-	focusedSymbol = "*",
+	focusedSymbol = "-",
+	gap = 1,
 	...rest
 }: OwnProps) => {
-	const { accentColor } = useStyles();
-
-	const defaultOptionIndex = options.findIndex(
-		option => option.value === defaultValue
-	);
-	const [selected, setSelected] = useState(
-		defaultValue !== undefined ? defaultOptionIndex : 0
-	);
-	const [focused, setFocused] = useState(
-		defaultValue !== undefined ? defaultOptionIndex : 0
+	// Custom select hook is used to manage the state of the selection
+	const { focused, selected, next, previous, select } = useSelect(
+		options,
+		defaultValue,
+		onSelect,
+		onChange
 	);
 
+	//
 	useInput((_, key) => {
-		if (selectKey && key[selectKey]) {
-			setSelected(focused);
-			onSelect && onSelect(options[selected]);
-			options[selected]?.onSelect !== undefined &&
-				options[selected]?.onSelect!();
-		}
-		if (key[navigationKeys.up]) {
-			setFocused(Math.max(0, focused - 1));
-		}
-		if (key[navigationKeys.down]) {
-			setFocused(Math.min(options.length - 1, focused + 1));
-			onChange && onChange(options[focused]);
-		}
+		selectKey && key[selectKey] && select();
+		key[navigationKeys.up] && previous();
+		key[navigationKeys.down] && next();
 	});
 
-	const { primaryPanel } = useNavigation();
+	const { accentColor } = useStyles();
 
 	return (
-		<Box flexDirection="column" alignItems="flex-start" {...rest}>
+		<Box
+			flexDirection="column"
+			alignItems="flex-start"
+			width={
+				rest.width ?? Math.max(...options.map(o => o.label.length)) + 1 + gap
+			} // Get the width of the longest option
+			{...rest}
+		>
 			{options.map((option, index) => (
 				<Box
 					key={index}
@@ -89,25 +73,32 @@ const Select = ({
 					<Text
 						key={index}
 						color={
-							selected === index
-								? accentColor
-								: focused === index
+							focused === index
 								? "whiteBright"
-								: "white"
+								: selected === index && option.type !== "action"
+								? accentColor
+								: "grey"
 						}
 					>
 						{option.label}
 					</Text>
-					<Text color={selected === index ? accentColor : "whiteBright"}>
-						{selected === index
+					<Text
+						color={
+							focused === index
+								? "whiteBright"
+								: selected === index && option.type !== "action"
+								? accentColor
+								: "grey"
+						}
+					>
+						{focused === index
+							? focusedSymbol
+							: selected === index && option.type !== "action"
 							? selectedSymbol
-							: focused === index && focusedSymbol}
+							: " "}
 					</Text>
 				</Box>
 			))}
-			<Text> </Text>
-			<Text>Panel:</Text>
-			<Text>{primaryPanel}</Text>
 		</Box>
 	);
 };

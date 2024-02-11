@@ -19,14 +19,15 @@ import { Gur6 } from "./ui/prompts/GURPrompts.js";
 import { Dogo } from "./ui/prompts/LegacyPrompts.js";
 
 const App = ({ cli }: { cli: Cli }) => {
-	// Make cli values available globally
-	const setCli = useSetAtom(cliAtom);
-	setCli(cli);
-
-	// Make exit function available globally
 	const { exit } = useApp();
+
+	// Set the CLI and Utils so they can be used globally
+	const setCli = useSetAtom(cliAtom);
 	const setUtils = useSetAtom(utilsAtom);
-	setUtils({ exit });
+	useEffect(() => {
+		setCli(cli);
+		setUtils({ exit });
+	}, []);
 
 	// Dimensions settings specified in the CLI
 	const {
@@ -67,11 +68,10 @@ const App = ({ cli }: { cli: Cli }) => {
 			width={width}
 			height={height}
 		>
-			<Box flexDirection="row" height={"100%"}>
+			<Box flexDirection="row" height={"100%"} alignItems="flex-start">
 				<Menu />
 				{secondaryPanel === SecondaryPanel.User && <UserPanel />}
-				<DebugPanel visible={primaryPanel === PrimaryPanel.Debug} />
-
+				{primaryPanel === PrimaryPanel.Debug && <DebugPanel />}
 				<AciiArtPanel visible={primaryPanel === PrimaryPanel.Gur}>
 					<Gur6 />
 				</AciiArtPanel>

@@ -1,43 +1,61 @@
-import { Box, useFocus } from "ink";
+import { Box } from "ink";
+import { Option, Options } from "../../lib/select.js";
 import { Bar, useBar } from "../../state/bar.js";
+import { useCli } from "../../state/cli.js";
 import {
 	PrimaryPanel,
 	SecondaryPanel,
 	useNavigation
 } from "../../state/navigation.js";
 import { useStyles } from "../../state/style.js";
-import { useLogoutUser } from "../../state/user.js";
-import Select, { Option, Options } from "../components/Select.js";
+import { useLogoutUser, useUser } from "../../state/user.js";
+import { useUtils } from "../../state/utils.js";
+import Select from "../components/Select.js";
 
 /**
  * Houses the main navigation pane
  * @returns {JSX.Element}
  */
 const MenuPanel = () => {
-	const { borderStyle, borderColor, accentColor } = useStyles();
-	const { isFocused } = useFocus();
+	const { borderStyle, borderColor } = useStyles();
 	const { setNavigation } = useNavigation();
 	const logout = useLogoutUser();
 	const { setBar } = useBar();
+	const { flags } = useCli();
+	const { exit } = useUtils();
+	const user = useUser();
 
 	const commands: Options = [
-		{
-			label: "Logout",
-			value: PrimaryPanel.Gur,
-			onSelect: () => {
-				logout();
-				setBar({ bar: Bar.Login });
-				setNavigation({ secondaryPanel: SecondaryPanel.None });
-			}
-		},
-		{ label: "Debug", value: PrimaryPanel.Debug },
-		{ label: "Gur", value: PrimaryPanel.Gur },
-		{ label: "Dogo", value: PrimaryPanel.Art },
+		...(user
+			? [
+					{
+						label: "Logout",
+						value: "logout",
+						type: "action",
+						onSelect: () => {
+							logout();
+							setBar({ bar: Bar.Login });
+							setNavigation({ secondaryPanel: SecondaryPanel.None });
+						}
+					}
+			  ]
+			: [{ label: "New User", value: PrimaryPanel.NewUser }]),
+		...(flags?.debug || flags?.unlock
+			? [
+					{
+						label: "Exit",
+						value: "exit",
+						onSelect: () => exit()
+					},
+					{ label: "Debug", value: PrimaryPanel.Debug },
+					{ label: "Gur", value: PrimaryPanel.Gur },
+					{ label: "Dogo", value: PrimaryPanel.Art }
+			  ]
+			: []),
 		{ label: "Bottle Returns", value: PrimaryPanel.Returns },
 		{ label: "Deposit", value: PrimaryPanel.Deposit },
 		{ label: "Barcodes", value: PrimaryPanel.Barcodes },
-		{ label: "Check Price", value: PrimaryPanel.PriceCheck },
-		{ label: "New User", value: PrimaryPanel.NewUser },
+		{ label: "Check Price &\nList Products", value: PrimaryPanel.PriceCheck },
 		{ label: "Wiki", value: PrimaryPanel.Wiki },
 		{ label: "Statistics", value: PrimaryPanel.Stats },
 		{ label: "Leaderboard", value: PrimaryPanel.Leaderboard },
@@ -56,18 +74,13 @@ const MenuPanel = () => {
 	return (
 		<Box
 			borderStyle={borderStyle}
-			borderColor={isFocused ? accentColor : borderColor}
+			borderColor={borderColor}
 			flexDirection="column"
 			flexShrink={0}
 			paddingX={1}
 			height={"100%"}
 		>
-			<Select
-				width={Math.max(...commands.map(o => o.label.length)) + 4}
-				options={commands}
-				selectKey={undefined}
-				onSelect={onSelect}
-			/>
+			<Select options={commands} selectKey={undefined} onSelect={onSelect} />
 		</Box>
 	);
 };
