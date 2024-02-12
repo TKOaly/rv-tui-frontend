@@ -1,4 +1,4 @@
-import { Option } from "../../../lib/select";
+import { Option } from "./select";
 
 export const includeWhen = (when: any, options: Option | Option[]) => {
 	return when ? (Array.isArray(options) ? options : [options]) : [];

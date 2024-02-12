@@ -37,12 +37,12 @@ const Select = ({
 	...rest
 }: OwnProps) => {
 	// Custom select hook is used to manage the state of the selection
-	const { focused, selected, next, previous, select } = useSelect(
+	const { focused, selected, next, previous, select } = useSelect({
 		options,
 		defaultValue,
 		onSelect,
 		onChange
-	);
+	});
 
 	//
 	useInput((_, key) => {
@@ -92,6 +92,7 @@ const Select = ({
 						{option.label}
 					</Text>
 					<Text
+						bold={focused === index}
 						color={
 							focused === index
 								? "whiteBright"
@@ -100,10 +101,10 @@ const Select = ({
 								: "grey"
 						}
 					>
-						{focused === index
-							? focusedSymbol
-							: selected === index && option.type !== "action"
+						{selected === index && option.type !== "action"
 							? selectedSymbol
+							: focused === index
+							? focusedSymbol
 							: " "}
 					</Text>
 				</Box>

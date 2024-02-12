@@ -2,8 +2,8 @@ import type { DOMElement } from "ink";
 import { Box, Text } from "ink";
 import { useMeasurements } from "../../../lib/dimensions.js";
 import { useStyles } from "../../../state/style.js";
-import BorderBox from "../boxes/BorderBox.js";
-import LayoutBox from "../boxes/LayoutBox.js";
+import BorderBox from "./BorderBox.js";
+import LayoutBox, { LayoutBoxProps } from "./LayoutBox.js";
 
 type HeaderProps = {
 	title: string;
@@ -11,13 +11,13 @@ type HeaderProps = {
 	width?: number;
 	headerPosition?: number;
 	middle?: boolean;
-} & React.ComponentProps<typeof LayoutBox>;
+} & LayoutBoxProps;
 
 /**
  * A header for a TabBox
  * Also renders the top border for the TabBox as it is dependent on the position and width of the header
  */
-export const TabHeader = ({
+export const BoxHeader = ({
 	title,
 	padding = 1,
 	width = 0,
@@ -90,7 +90,7 @@ type TabBoxProps = {
  * A box with a header that to display a title
  * Doesn't handle bottom overflow that well
  */
-export const TabBox = ({
+export const HeaderBox = ({
 	title,
 	headerCentered = false,
 	headerPosition = 0,
@@ -110,7 +110,7 @@ export const TabBox = ({
 			height={rest.height}
 			display={display}
 		>
-			<TabHeader
+			<BoxHeader
 				title={title}
 				width={width}
 				headerPosition={headerPosition}

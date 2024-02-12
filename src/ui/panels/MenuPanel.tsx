@@ -1,13 +1,13 @@
 import { Box } from "ink";
-import { Option, Options } from "../../../lib/select.js";
-import { useBar } from "../../../state/bar.js";
-import { useCli } from "../../../state/cli.js";
-import { PrimaryPanel, useNavigation } from "../../../state/navigation.js";
-import { useStyles } from "../../../state/style.js";
-import { useLogoutUser, useUser } from "../../../state/user.js";
-import { useUtils } from "../../../state/utils.js";
-import Select from "../../components/Select.js";
-import { includeWhen, includeWhenElse } from "./commandUtils.js";
+import { includeWhen, includeWhenElse } from "../../lib/menuUtils.js";
+import { Option, Options, RESET_SELECT } from "../../lib/select.js";
+import { useBar } from "../../state/bar.js";
+import { useCli } from "../../state/cli.js";
+import { PrimaryPanel, useNavigation } from "../../state/navigation.js";
+import { useStyles } from "../../state/style.js";
+import { useLogoutUser, useUser } from "../../state/user.js";
+import { useUtils } from "../../state/utils.js";
+import Select from "../components/Select.js";
 
 /**
  * Houses the main navigation pane
@@ -22,7 +22,7 @@ const MenuPanel = () => {
 	const { exit } = useUtils();
 	const user = useUser();
 
-	const commands: Options = [
+	const options: Options = [
 		...includeWhenElse(
 			user,
 			{
@@ -33,6 +33,7 @@ const MenuPanel = () => {
 					logout();
 					resetBar();
 					resetNavigation();
+					return RESET_SELECT;
 				}
 			},
 			{ label: "New User", value: PrimaryPanel.NewUser }
@@ -80,7 +81,7 @@ const MenuPanel = () => {
 			paddingX={1}
 			height={"100%"}
 		>
-			<Select options={commands} selectKey={undefined} onSelect={onSelect} />
+			<Select options={options} selectKey={undefined} onSelect={onSelect} />
 		</Box>
 	);
 };

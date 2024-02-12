@@ -5,6 +5,7 @@ import { Dogo } from "../prompts/LegacyPrompts.js";
 import AccountPanel from "./AccountPanel.js";
 import AciiArtPanel from "./AsciiArtPanel.js";
 import DebugPanel from "./DebugPanel.js";
+import DepositPanel from "./DepositPanel.js";
 
 const PrimaryPanels = () => {
 	const { primaryPanel } = useNavigation();
@@ -22,6 +23,7 @@ const PrimaryPanels = () => {
 			)}
 			{primaryPanel === PrimaryPanel.Debug && <DebugPanel />}
 			{primaryPanel === PrimaryPanel.Account && <AccountPanel />}
+			{primaryPanel === PrimaryPanel.Deposit && <DepositPanel />}
 		</Box>
 	);
 };

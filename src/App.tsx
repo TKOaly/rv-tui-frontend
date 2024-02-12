@@ -7,7 +7,7 @@ import { cliAtom } from "./state/cli.js";
 import { SecondaryPanel, useNavigation } from "./state/navigation.js";
 import { utilsAtom } from "./state/utils.js";
 import CommandBar from "./ui/panels/Bar/Bar.js";
-import Menu from "./ui/panels/Menu/MenuPanel.js";
+import Menu from "./ui/panels/MenuPanel.js";
 import PrimaryPanels from "./ui/panels/PrimaryPanels.js";
 import UserPanel from "./ui/panels/UserPanel.js";
 
@@ -63,8 +63,8 @@ const App = ({ cli }: { cli: Cli }) => {
 		>
 			<Box flexDirection="row" height={"100%"} alignItems="flex-start">
 				<Menu />
-				{secondaryPanel === SecondaryPanel.User && <UserPanel />}
 				<PrimaryPanels />
+				{secondaryPanel === SecondaryPanel.User && <UserPanel />}
 			</Box>
 			<CommandBar />
 		</Box>

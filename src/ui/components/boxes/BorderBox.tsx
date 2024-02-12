@@ -2,7 +2,7 @@ import { useStyles } from "../../../state/style.js";
 import type { LayoutBoxProps } from "./LayoutBox.js";
 import LayoutBox from "./LayoutBox.js";
 
-type OwnProps = {
+export type BorderBoxProps = {
 	isFocused?: boolean;
 } & LayoutBoxProps;
 
@@ -12,7 +12,7 @@ const BorderBox = ({
 	children,
 	isFocused = false,
 	...rest
-}: OwnProps) => {
+}: BorderBoxProps) => {
 	const { borderStyle, borderColor, accentColor } = useStyles();
 
 	return (
