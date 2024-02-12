@@ -17,7 +17,7 @@ const TabBox = ({
 	const { ref, height } = useMeasurements();
 
 	return (
-		<Box ref={ref} flexDirection="column" {...rest}>
+		<Box ref={ref} flexDirection="column" alignItems="flex-start" {...rest}>
 			<TabSelect options={options} onChange={onChange} title={title} />
 			<BorderBox
 				width={"100%"}

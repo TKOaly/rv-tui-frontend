@@ -40,7 +40,7 @@ export const Dogo = () => {
 	);
 };
 
-export const Fuuuu = () => {
+export const Rage = () => {
 	const fuuuu = [
 		"        PLEASE DEPOSIT MONEY ASAP      ",
 		"                 .:oxxxxo'             ",
@@ -77,7 +77,7 @@ export const Fuuuu = () => {
 	);
 };
 
-export const Rip = () => {
+export const Nag = () => {
 	const fuuuu = [
 		" XXXXXXXXXXXXXXXXXXXXXXXXXXXX   ",
 		"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  ",

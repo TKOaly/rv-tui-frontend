@@ -4,9 +4,11 @@ import { Option } from "../../lib/select.js";
 import Barcode from "../components/Barcode.js";
 import BorderBox from "../components/boxes/BorderBox.js";
 import { HeaderBox } from "../components/boxes/HeaderBox.js";
+import LayoutBox from "../components/boxes/LayoutBox.js";
 import TabBox from "../components/boxes/TabBox.js";
 import TabSelect from "../components/boxes/TabSelect.js";
 import { Gur6 } from "../prompts/GURPrompts.js";
+import { Dogo, Nag, Rage } from "../prompts/LegacyPrompts.js";
 
 const DebugPanel = () => {
 	const [debugView, setDebugView] = useState("barcodes");
@@ -29,8 +31,8 @@ const DebugPanel = () => {
 			value: "tabs"
 		},
 		{
-			label: "Form",
-			value: "form"
+			label: "Art",
+			value: "art"
 		}
 	];
 
@@ -67,7 +69,7 @@ const DebugPanel = () => {
 					rowGap={1}
 					columnGap={2}
 					paddingY={1}
-					paddingX={2}
+					paddingX={3}
 				>
 					{debugView === "barcodes" && (
 						<>
@@ -84,13 +86,13 @@ const DebugPanel = () => {
 					)}
 					{debugView === "timers" && (
 						<>
-							<BorderBox>
+							<BorderBox paddingX={1}>
 								<Text>10ms: {timer}</Text>
 							</BorderBox>
-							<BorderBox>
+							<BorderBox paddingX={1}>
 								<Text>100ms: {Math.floor(timer / 10)}</Text>
 							</BorderBox>
-							<BorderBox>
+							<BorderBox paddingX={1}>
 								<Text>1000ms: {Math.floor(timer / 100)}</Text>
 							</BorderBox>
 						</>
@@ -103,13 +105,6 @@ const DebugPanel = () => {
 							<HeaderBox title="Ascii Art" headerPosition={3}>
 								<Gur6 />
 							</HeaderBox>
-							<TabSelect
-								options={[
-									{ label: "a", value: "a" },
-									{ label: "b", value: "b" }
-								]}
-								title="TabSelect"
-							></TabSelect>
 						</>
 					)}
 					{debugView === "tabs" && (
@@ -123,6 +118,38 @@ const DebugPanel = () => {
 								title="TabSelect"
 							></TabSelect>
 						</>
+					)}
+					{debugView.includes("art") && (
+						<TabBox
+							title="Art"
+							options={[
+								{
+									label: "Dogo",
+									value: "art_dogo"
+								},
+								{
+									label: "Gur",
+									value: "art_gur"
+								},
+								{
+									label: "Nag",
+									value: "art_nag"
+								},
+								{
+									label: "Rage",
+									value: "art_rage"
+								}
+							]}
+							onChange={onChange}
+							height={"100%"}
+						>
+							<LayoutBox height={"100%"} width={"100%"} center>
+								{debugView === "art_dogo" && <Dogo />}
+								{debugView === "art_gur" && <Gur6 />}
+								{debugView === "art_nag" && <Nag />}
+								{debugView === "art_rage" && <Rage />}
+							</LayoutBox>
+						</TabBox>
 					)}
 				</Box>
 			</TabBox>

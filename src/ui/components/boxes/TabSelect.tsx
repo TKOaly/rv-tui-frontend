@@ -66,11 +66,14 @@ const TabSelect = ({
 					{
 						// Fill the remaining space with lines
 						"─".repeat(
-							width - // Full width
-								8 - // Lines at the corners and after the title
-								(title?.length ?? -4) - // Title length, if there is no title the lines between the title and tabs are removed
-								options.map(options => options.label).join("").length - // Length of the tab titles
-								(3 + padding * 3) * options.length // space between tabs
+							Math.max(
+								width - // Full width
+									8 - // Lines at the corners and after the title
+									(title?.length ?? -4) - // Title length, if there is no title the lines between the title and tabs are removed
+									options.map(options => options.label).join("").length - // Length of the tab titles
+									(3 + padding * 3) * options.length, // space between tabs
+								0 // Make sure the remaining space isn't negative
+							)
 						)
 					}
 				</Text>
