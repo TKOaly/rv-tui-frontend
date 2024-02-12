@@ -10,6 +10,7 @@ type OwnProps = {
 	inverted?: boolean;
 	transparent?: boolean;
 	errorOnInvalid?: boolean;
+	scale?: 1 | 2;
 } & React.ComponentProps<typeof Text>;
 
 /**
@@ -26,6 +27,7 @@ const Barcode = ({
 	numbers = false,
 	transparent = false,
 	errorOnInvalid = false,
+	scale = 1,
 	color,
 	backgroundColor,
 	...rest
@@ -43,7 +45,7 @@ const Barcode = ({
 
 	const { firstDigit, leftGroup, rightGroup } = splitEAN(EAN);
 
-	const lineRow = EANToUnicode(EAN);
+	const lineRow = EANToUnicode(EAN, scale);
 
 	/* eslint-disable no-mixed-spaces-and-tabs */
 	// Numbers need a different spacing in EAN-8 and EAN-13 barcodes

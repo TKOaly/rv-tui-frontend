@@ -45,8 +45,7 @@ const MenuPanel = () => {
 				onSelect: () => exit()
 			},
 			{ label: "Debug", value: PrimaryPanel.Debug },
-			{ label: "Gur", value: PrimaryPanel.Gur },
-			{ label: "Dogo", value: PrimaryPanel.Art }
+			{ label: "Gur", value: PrimaryPanel.Gur }
 		]),
 		...includeWhen(user, [
 			{ label: "Bottle Returns", value: PrimaryPanel.Returns },

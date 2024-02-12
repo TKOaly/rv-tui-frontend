@@ -13,7 +13,7 @@ const BarcodeBar = () => {
 				(barcode.length === 8 || barcode.length === 13) && setBarcode(barcode);
 				setTimeout(() => {
 					setBarcode(undefined);
-				}, 4000);
+				}, 3000);
 			}}
 		/>
 	) : (
@@ -23,6 +23,7 @@ const BarcodeBar = () => {
 			color={"white"}
 			transparent
 			padding={0}
+			scale={2}
 		/>
 	);
 };

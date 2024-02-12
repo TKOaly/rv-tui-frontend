@@ -12,13 +12,19 @@ const TabBox = ({
 	children,
 	flexDirection,
 	flexWrap,
+	defaultValue,
 	...rest
 }: OwnProps) => {
 	const { ref, height } = useMeasurements();
 
 	return (
 		<Box ref={ref} flexDirection="column" alignItems="flex-start" {...rest}>
-			<TabSelect options={options} onChange={onChange} title={title} />
+			<TabSelect
+				options={options}
+				onChange={onChange}
+				defaultValue={defaultValue}
+				title={title}
+			/>
 			<BorderBox
 				width={"100%"}
 				height={height - 1}

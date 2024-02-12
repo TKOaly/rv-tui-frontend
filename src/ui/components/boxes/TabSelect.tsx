@@ -8,6 +8,7 @@ export type TabSelectProps = {
 	onChange?: (option: Option | undefined) => void;
 	title?: string;
 	disabled?: boolean;
+	defaultValue?: string | number;
 	padding?: number;
 } & React.ComponentProps<typeof Box>;
 
@@ -16,6 +17,7 @@ const TabSelect = ({
 	onChange,
 	title,
 	disabled,
+	defaultValue,
 	padding = 1
 }: TabSelectProps) => {
 	const { ref, width } = useMeasurements();
@@ -28,7 +30,8 @@ const TabSelect = ({
 		previous
 	} = useSelect({
 		options,
-		onChange
+		onChange,
+		defaultValue
 	});
 
 	useInput((_, key) => {
@@ -45,7 +48,7 @@ const TabSelect = ({
 					{title && "────"}
 				</Text>
 				{options.map((option, index) => (
-					<>
+					<Text key={index}>
 						<Text>──{" ".repeat(padding)}</Text>
 						<Text
 							key={option.value}
@@ -60,7 +63,7 @@ const TabSelect = ({
 						{focusedTab === index // Tab selection indicator
 							? "↓" + " ".repeat(padding)
 							: "─" + "─".repeat(padding)}
-					</>
+					</Text>
 				))}
 				<Text>
 					{

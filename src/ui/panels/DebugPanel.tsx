@@ -140,6 +140,7 @@ const DebugPanel = () => {
 									value: "art_rage"
 								}
 							]}
+							defaultValue={"art_dogo"}
 							onChange={onChange}
 							height={"100%"}
 						>
