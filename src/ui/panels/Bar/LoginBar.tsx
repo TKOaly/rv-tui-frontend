@@ -55,7 +55,7 @@ const LoginBar = () => {
 				/>
 			)}
 			{activeInput === BarState.Invalid && (
-				<Text color="red">Invalid password</Text>
+				<Text color="red">Login Failed</Text>
 			)}
 		</>
 	);

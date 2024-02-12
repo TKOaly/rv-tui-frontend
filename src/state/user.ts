@@ -1,5 +1,6 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { atomWithReset, useResetAtom } from "jotai/utils";
+import { authenticate, getUser } from "../queries/user/userQueries.js";
 
 export type User = {
 	userId: number;
@@ -38,26 +39,25 @@ type LoginInfo = { username: string; password: string };
 export const useLoginUser = () => {
 	const [accessToken, setAccessToken] = useAtom(accessTokenAtom);
 	const setUser = useSetAtom(userAtom);
+	const resetUser = useResetAtom(userAtom);
+	const resetAccessToken = useResetAtom(accessTokenAtom);
 
-	return ({ username, password }: LoginInfo) => {
+	return async ({ username, password }: LoginInfo) => {
 		if (username !== undefined && password !== undefined) {
-			// @todo Get the access token from the server
-			const accessToken = "token";
-			if (accessToken === undefined) {
-				throw new Error("Login failed");
-			}
+			const accessToken = await authenticate(username, password).catch(
+				error => {
+					console.error(error);
+					throw new Error("Failed to authenticate");
+				}
+			);
 			setAccessToken(accessToken);
-			// Get user data from the server when the access token has been set
-			// @todo replace with actual request to the server
-			const user: User = {
-				userId: 1,
-				username: "Tester",
-				fullName: "User Tester",
-				email: "test@testing.test",
-				moneyBalance: 10000,
-				role: "USER1"
-			};
-			// Set the user atom
+
+			const user: User = await getUser(accessToken).catch(error => {
+				console.error(error);
+				resetAccessToken();
+				resetUser();
+				throw new Error("Failed to fetch user data");
+			});
 			setUser(user);
 		}
 

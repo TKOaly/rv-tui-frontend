@@ -22,7 +22,7 @@ type NewUserRequest = {
  * Register new user with backend to database
  * @param {object} newUser
  */
-const registerUser = async (newUser: NewUserRequest): UserResponse => {
+export const registerUser = async (newUser: NewUserRequest): UserResponse => {
 	const res = await axios.post(
 		`${process.env["RV_BACKEND_URL"]}/api/v1/register`,
 		{
@@ -39,7 +39,7 @@ const registerUser = async (newUser: NewUserRequest): UserResponse => {
  * Fetches user information from backend.
  * @param {string} token access token
  */
-const getUser = async (token: string): UserResponse => {
+export const getUser = async (token: string): UserResponse => {
 	const res = await axios.get(`${process.env["RV_BACKEND_URL"]}/api/v1/user`, {
 		headers: { Authorization: "Bearer " + token }
 	});
@@ -52,7 +52,7 @@ type EditUserRequest = {
 	email: string;
 };
 
-const editUser = async (
+export const editUser = async (
 	token: string,
 	editedUserFields: EditUserRequest
 ): UserResponse => {
@@ -68,7 +68,7 @@ const editUser = async (
 	return res.data.user;
 };
 
-const changePassword = async (token: string, password: string) => {
+export const changePassword = async (token: string, password: string) => {
 	await axios.post(
 		`${process.env["RV_BACKEND_URL"]}/api/v1/user/changePassword`,
 		{ password },
@@ -85,7 +85,7 @@ const changePassword = async (token: string, password: string) => {
  * Authenticates the user with back-end. Returns an access token.
  * @param {object} user
  */
-const authenticate = async (
+export const authenticate = async (
 	username: string,
 	password: string
 ): Promise<string> => {
@@ -114,7 +114,7 @@ type DepositResponse = {
  * @param {string} token access token
  * @param {integer} amount amount to increase
  */
-const deposit = async (
+export const deposit = async (
 	token: string,
 	amount: number
 ): Promise<DepositResponse> => {
@@ -130,13 +130,4 @@ const deposit = async (
 		}
 	);
 	return res.data;
-};
-
-export default {
-	getUser,
-	editUser,
-	changePassword,
-	deposit,
-	authenticate,
-	registerUser
 };
