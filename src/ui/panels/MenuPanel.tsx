@@ -1,8 +1,14 @@
-import { Box } from "ink";
+import { Box, useInput } from "ink";
 import { includeWhen, includeWhenElse } from "../../lib/menuUtils.js";
-import { Option, Options, RESET_SELECT } from "../../lib/select.js";
+import {
+	Option,
+	Options,
+	RESET_SELECT,
+	useSelectRef
+} from "../../lib/select.js";
 import { useBar } from "../../state/bar.js";
 import { useCli } from "../../state/cli.js";
+import { useSetMenuRef } from "../../state/focus.js";
 import { PrimaryPanel, useNavigation } from "../../state/navigation.js";
 import { useStyles } from "../../state/style.js";
 import { useUser } from "../../state/user.js";
@@ -11,27 +17,32 @@ import Select from "../components/Select.js";
 
 /**
  * Houses the main navigation pane
- * @returns {JSX.Element}
  */
 const MenuPanel = () => {
 	const { borderStyle, borderColor } = useStyles();
-	const { resetNavigation, setNavigation } = useNavigation();
+	const { primaryPanel, resetNavigation, setNavigation } = useNavigation();
 	const { resetBar } = useBar();
 	const { flags } = useCli();
 	const { exit } = useUtils();
 	const { user, logoutUser } = useUser();
 
+	const onLogout = () => {
+		logoutUser();
+		resetBar();
+		resetNavigation();
+	};
+
+	// Options for the main navigation
+	// Some options are only visible when certain conditions are met
 	const options: Options = [
 		...includeWhenElse(
 			user,
 			{
 				label: "Logout",
-				value: PrimaryPanel.Art,
+				value: PrimaryPanel.Default,
 				type: "action",
 				onSelect: () => {
-					logoutUser();
-					resetBar();
-					resetNavigation();
+					onLogout();
 					return RESET_SELECT;
 				}
 			},
@@ -62,6 +73,26 @@ const MenuPanel = () => {
 		])
 	];
 
+	// Expose the menu controls through the focus state in order to reset the menu from other panels
+	const ref = useSelectRef();
+	useSetMenuRef(ref);
+
+	/* If the escape key is pressed while the logout option is focused and the user
+		does not have a panel open, log the user out
+	*/
+	useInput((_, key) => {
+		if (
+			key.escape &&
+			ref?.current?.focused !== undefined &&
+			options[ref?.current?.focused]?.label === "Logout" &&
+			primaryPanel === PrimaryPanel.Default
+		) {
+			onLogout();
+			ref.current?.reset();
+		}
+	});
+
+	// If a panel is selected, navigate to it
 	const onSelect = (option: Option | undefined) => {
 		if (option && option.value in PrimaryPanel) {
 			setNavigation({
@@ -79,7 +110,12 @@ const MenuPanel = () => {
 			paddingX={1}
 			height={"100%"}
 		>
-			<Select options={options} selectKey={undefined} onSelect={onSelect} />
+			<Select
+				ref={ref}
+				options={options}
+				selectKey={undefined}
+				onSelect={onSelect}
+			/>
 		</Box>
 	);
 };

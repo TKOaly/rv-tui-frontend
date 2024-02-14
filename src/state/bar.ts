@@ -13,14 +13,10 @@ export enum Bar {
  */
 type BarState = {
 	bar: Bar;
-	barDisabled: boolean;
-	barReturn: boolean | undefined;
 };
 
 const barAtom = atomWithReset<BarState>({
-	bar: Bar.Login,
-	barDisabled: false,
-	barReturn: undefined
+	bar: Bar.Login
 });
 
 export const useBar = () => ({

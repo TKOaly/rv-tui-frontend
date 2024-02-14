@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=Ruokavälitys
+Name=Ruokavälitys Development
 GenericName=RV
 Comment=TKO-äly Ruokavälitys
-Exec=env RV_BACKEND_URL=http://localhost:8080 kitty --start-as fullscreen rv
+Exec=env RV_BACKEND_URL=http://localhost:8080 kitty --hold --start-as fullscreen rv -u
 Terminal=false
 Type=Application
 Categories=ConsoleOnly;System;

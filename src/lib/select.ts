@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 type EnumOption = {
 	value: number;
@@ -91,5 +91,7 @@ const useSelect = ({
 
 	return { selected, focused, next, previous, select, reset };
 };
+
+export const useSelectRef = () => useRef<ReturnType<typeof useSelect>>(null);
 
 export default useSelect;

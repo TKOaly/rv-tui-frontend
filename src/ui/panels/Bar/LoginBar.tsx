@@ -2,7 +2,6 @@ import { PasswordInput, TextInput } from "@inkjs/ui";
 import { Text } from "ink";
 import { useState } from "react";
 import { Bar, useBar } from "../../../state/bar.js";
-import { SecondaryPanel, useNavigation } from "../../../state/navigation.js";
 import { useUser } from "../../../state/user.js";
 
 enum BarState {
@@ -15,7 +14,6 @@ enum BarState {
 const LoginBar = () => {
 	const { loginUser } = useUser();
 	const { setBar } = useBar();
-	const { setNavigation } = useNavigation();
 
 	const [activeInput, setActiveInput] = useState(BarState.userName);
 	const [username, setUsername] = useState<string>("");
@@ -41,7 +39,6 @@ const LoginBar = () => {
 							loginUser({ username, password });
 							setActiveInput(BarState.userName);
 							setBar({ bar: Bar.Barcode });
-							setNavigation({ secondaryPanel: SecondaryPanel.User });
 						} catch (error) {
 							console.error(error);
 							setActiveInput(BarState.Invalid);
