@@ -1,5 +1,6 @@
 import { useAtomValue } from "jotai";
 import { atomWithReset, useResetAtom } from "jotai/utils";
+import { BarVariant } from "../ui/panels/Bar/BarBox.js";
 import { usePartialSetAtom } from "./atomUtils.js";
 
 export enum Bar {
@@ -13,6 +14,11 @@ export enum Bar {
  */
 type BarState = {
 	bar: Bar;
+	notification?: {
+		message: string;
+		variant: BarVariant;
+		timeout: number; // In milliseconds, -1 for no timeout
+	};
 };
 
 const barAtom = atomWithReset<BarState>({

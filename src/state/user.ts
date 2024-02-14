@@ -39,7 +39,7 @@ const useLoginUser = () => {
 	return async ({ username, password }: LoginInfo) => {
 		if (username !== undefined && password !== undefined) {
 			const accessToken = await authenticate(username, password).catch(() => {
-				throw new Error("Failed to authenticate");
+				throw new Error("Unauthorized");
 			});
 			setAccessToken(accessToken);
 

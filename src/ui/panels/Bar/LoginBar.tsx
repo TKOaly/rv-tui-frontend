@@ -3,6 +3,7 @@ import { Text } from "ink";
 import { useState } from "react";
 import { Bar, useBar } from "../../../state/bar.js";
 import { useUser } from "../../../state/user.js";
+import BarBox, { BarVariant } from "./BarBox.js";
 
 enum BarState {
 	userName = 0,
@@ -17,9 +18,11 @@ const LoginBar = () => {
 
 	const [activeInput, setActiveInput] = useState(BarState.userName);
 	const [username, setUsername] = useState<string>("");
+	const [barVariant, setBarVariant] = useState<BarVariant>("normal");
+	const [error, setError] = useState("");
 
 	return (
-		<>
+		<BarBox variant={barVariant}>
 			{activeInput === BarState.userName && (
 				<TextInput
 					placeholder="Type username:"
@@ -33,17 +36,23 @@ const LoginBar = () => {
 			{activeInput === BarState.password && (
 				<PasswordInput
 					placeholder="Type password:"
-					onSubmit={password => {
+					onSubmit={async password => {
 						if (password === "") return;
 						try {
-							loginUser({ username, password });
+							await loginUser({ username, password });
 							setActiveInput(BarState.userName);
 							setBar({ bar: Bar.Barcode });
-						} catch (error) {
-							console.error(error);
+						} catch (error: any) {
+							setError(
+								error.message === "Unauthorized"
+									? "Invalid username or password"
+									: "An error occurred in login"
+							);
+							setBarVariant("error");
 							setActiveInput(BarState.Invalid);
 							setTimeout(() => {
 								setActiveInput(BarState.userName);
+								setBarVariant("normal");
 							}, 3000);
 						} finally {
 							setUsername("");
@@ -51,10 +60,8 @@ const LoginBar = () => {
 					}}
 				/>
 			)}
-			{activeInput === BarState.Invalid && (
-				<Text color="red">Login Failed</Text>
-			)}
-		</>
+			{activeInput === BarState.Invalid && <Text>{error}</Text>}
+		</BarBox>
 	);
 };
 
