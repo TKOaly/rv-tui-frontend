@@ -5,7 +5,7 @@ import { useBar } from "../../state/bar.js";
 import { useCli } from "../../state/cli.js";
 import { PrimaryPanel, useNavigation } from "../../state/navigation.js";
 import { useStyles } from "../../state/style.js";
-import { useLogoutUser, useUser } from "../../state/user.js";
+import { useUser } from "../../state/user.js";
 import { useUtils } from "../../state/utils.js";
 import Select from "../components/Select.js";
 
@@ -16,21 +16,20 @@ import Select from "../components/Select.js";
 const MenuPanel = () => {
 	const { borderStyle, borderColor } = useStyles();
 	const { resetNavigation, setNavigation } = useNavigation();
-	const logout = useLogoutUser();
 	const { resetBar } = useBar();
 	const { flags } = useCli();
 	const { exit } = useUtils();
-	const user = useUser();
+	const { user, logoutUser } = useUser();
 
 	const options: Options = [
 		...includeWhenElse(
 			user,
 			{
 				label: "Logout",
-				value: "logout",
+				value: PrimaryPanel.Art,
 				type: "action",
 				onSelect: () => {
-					logout();
+					logoutUser();
 					resetBar();
 					resetNavigation();
 					return RESET_SELECT;

@@ -7,7 +7,7 @@ type OwnProps = {} & React.ComponentProps<typeof BorderBox>;
 
 const UserPanel = ({ children, ...rest }: OwnProps) => {
 	const styles = useStyles();
-	const user = useUser();
+	const { user } = useUser();
 
 	if (!user) return null;
 

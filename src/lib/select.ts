@@ -2,12 +2,10 @@ import { useState } from "react";
 
 type EnumOption = {
 	value: number;
-	type?: number;
 };
 
 type StringOption = {
 	value: string;
-	type?: string;
 };
 
 export const RESET_SELECT: unique symbol = Symbol();
@@ -20,6 +18,7 @@ export const RESET_SELECT: unique symbol = Symbol();
  * @property {number | string} type Type of the option
  */
 export type Option = {
+	type?: string | number;
 	label: string;
 	onSelect?: () => void | typeof RESET_SELECT;
 } & (EnumOption | StringOption);

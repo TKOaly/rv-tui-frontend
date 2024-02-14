@@ -3,7 +3,7 @@ import { Text } from "ink";
 import { useState } from "react";
 import { Bar, useBar } from "../../../state/bar.js";
 import { SecondaryPanel, useNavigation } from "../../../state/navigation.js";
-import { useLoginUser } from "../../../state/user.js";
+import { useUser } from "../../../state/user.js";
 
 enum BarState {
 	userName = 0,
@@ -13,7 +13,7 @@ enum BarState {
 }
 
 const LoginBar = () => {
-	const login = useLoginUser();
+	const { loginUser } = useUser();
 	const { setBar } = useBar();
 	const { setNavigation } = useNavigation();
 
@@ -38,7 +38,7 @@ const LoginBar = () => {
 					onSubmit={password => {
 						if (password === "") return;
 						try {
-							login({ username, password });
+							loginUser({ username, password });
 							setActiveInput(BarState.userName);
 							setBar({ bar: Bar.Barcode });
 							setNavigation({ secondaryPanel: SecondaryPanel.User });

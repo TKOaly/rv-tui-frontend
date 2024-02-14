@@ -62,9 +62,9 @@ const App = ({ cli }: { cli: Cli }) => {
 			height={height}
 		>
 			<Box flexDirection="row" height={"100%"} alignItems="flex-start">
+				{secondaryPanel === SecondaryPanel.User && <UserPanel />}
 				<Menu />
 				<PrimaryPanels />
-				{secondaryPanel === SecondaryPanel.User && <UserPanel />}
 			</Box>
 			<CommandBar />
 		</Box>

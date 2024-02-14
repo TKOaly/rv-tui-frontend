@@ -1,4 +1,4 @@
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { atomWithReset, useResetAtom } from "jotai/utils";
 import { authenticate, getUser } from "../queries/user/userQueries.js";
 
@@ -18,12 +18,6 @@ const userAtom = atomWithReset<User | undefined>(undefined);
 const accessTokenAtom = atomWithReset<string | undefined>(undefined);
 
 /**
- * Returns user data
- * @returns The logged in user
- */
-export const useUser = () => useAtomValue(userAtom);
-
-/**
  * Returns the access token
  * Separate from user data to make sure it is exposed only where explicitly needed
  * @returns The access token
@@ -36,33 +30,41 @@ type LoginInfo = { username: string; password: string };
  * Exposes a function to log in the user
  * @returns A function to log in the user
  */
-export const useLoginUser = () => {
-	const [accessToken, setAccessToken] = useAtom(accessTokenAtom);
+const useLoginUser = () => {
+	const setAccessToken = useSetAtom(accessTokenAtom);
 	const setUser = useSetAtom(userAtom);
 	const resetUser = useResetAtom(userAtom);
 	const resetAccessToken = useResetAtom(accessTokenAtom);
 
 	return async ({ username, password }: LoginInfo) => {
 		if (username !== undefined && password !== undefined) {
-			const accessToken = await authenticate(username, password).catch(
-				error => {
-					console.error(error);
-					throw new Error("Failed to authenticate");
-				}
-			);
+			const accessToken = await authenticate(username, password).catch(() => {
+				throw new Error("Failed to authenticate");
+			});
 			setAccessToken(accessToken);
 
-			const user: User = await getUser(accessToken).catch(error => {
-				console.error(error);
+			const user: User = await getUser(accessToken).catch(() => {
 				resetAccessToken();
 				resetUser();
 				throw new Error("Failed to fetch user data");
 			});
 			setUser(user);
 		}
+	};
+};
 
-		if (accessToken !== undefined) {
-		}
+const useRefetchUser = () => {
+	const accessToken = useAtomValue(accessTokenAtom);
+	const setUser = useSetAtom(userAtom);
+
+	return async () => {
+		if (accessToken === undefined)
+			throw new Error("Not able to fetch user data");
+
+		const user: User = await getUser(accessToken).catch(() => {
+			throw new Error("Failed to refetch user data");
+		});
+		setUser(user);
 	};
 };
 
@@ -71,7 +73,7 @@ export const useLoginUser = () => {
  * This clears the both the access token and user state
  * @todo should also reset navigation and bar states
  */
-export const useLogoutUser = () => {
+const useLogoutUser = () => {
 	const resetAccessToken = useResetAtom(accessTokenAtom);
 	const resetUser = useResetAtom(userAtom);
 	return () => {
@@ -79,3 +81,14 @@ export const useLogoutUser = () => {
 		resetUser();
 	};
 };
+
+/**
+ * Returns user data
+ * @returns The logged in user
+ */
+export const useUser = () => ({
+	user: useAtomValue(userAtom),
+	loginUser: useLoginUser(),
+	refetchUser: useRefetchUser(),
+	logoutUser: useLogoutUser()
+});

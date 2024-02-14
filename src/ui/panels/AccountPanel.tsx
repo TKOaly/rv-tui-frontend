@@ -3,7 +3,7 @@ import { useUser } from "../../state/user.js";
 import BorderBox from "../components/boxes/BorderBox.js";
 
 const AccountPanel = () => {
-	const user = useUser();
+	const { user } = useUser();
 
 	return (
 		<BorderBox

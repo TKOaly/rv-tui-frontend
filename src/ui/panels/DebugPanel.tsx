@@ -74,7 +74,8 @@ const DebugPanel = () => {
 					{debugView === "barcodes" && (
 						<>
 							<Barcode EAN={40700719} height={6} numbers />
-							<Barcode EAN={4070071935759} height={6} numbers />
+							<Barcode EAN={40700719} height={6} numbers />
+							<Barcode EAN={5701259100781} height={6} numbers />
 							<Barcode
 								EAN={4070071935759}
 								height={2}
