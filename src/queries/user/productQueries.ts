@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-type BuyProductResponse = {
+export type BuyProductResponse = {
 	accountBalance: number;
 	productStock: number;
 	purchases: [
@@ -16,7 +16,7 @@ type BuyProductResponse = {
 	];
 };
 
-const buyProduct = async (
+export const buyProduct = async (
 	barcode: string,
 	quantity: number,
 	token: string
@@ -47,7 +47,9 @@ type AllProductsResponse = [
 	}
 ];
 
-const getAllProducts = async (token: string): Promise<AllProductsResponse> => {
+export const getAllProducts = async (
+	token: string
+): Promise<AllProductsResponse> => {
 	const res = await axios.get(
 		`${process.env["RV_BACKEND_URL"]}/api/v1/products`,
 		{
@@ -64,7 +66,7 @@ type AllCategoriesResponse = [
 	}
 ];
 
-const getAllCategories = async (
+export const getAllCategories = async (
 	token: string
 ): Promise<AllCategoriesResponse> => {
 	const res = await axios.get(
@@ -75,5 +77,3 @@ const getAllCategories = async (
 	);
 	return res.data.categories;
 };
-
-export default { buyProduct, getAllProducts, getAllCategories };

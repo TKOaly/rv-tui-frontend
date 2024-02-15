@@ -35,8 +35,8 @@ const Select = forwardRef<ReturnType<typeof useSelect>, OwnProps>(
 			selectKey = "return",
 			navigationKeys = { up: "upArrow", down: "downArrow" },
 			defaultValue,
-			selectedSymbol = ">",
-			focusedSymbol = "-",
+			selectedSymbol = "▶",
+			focusedSymbol = "▷",
 			gap = 1,
 			disabled,
 			...rest

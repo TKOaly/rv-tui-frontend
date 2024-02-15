@@ -32,7 +32,7 @@ const DebugPanel = () => {
 		},
 		{
 			label: "Art",
-			value: "art"
+			value: "art_dogo"
 		}
 	];
 

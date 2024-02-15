@@ -5,7 +5,9 @@ const DepositPanel = () => {
 	return (
 		<Box overflow="hidden" flexDirection="column" flexGrow={20} height={"100%"}>
 			<TabBox title="(← Esc)────DEPOSITS" height={"100%"} flexShrink={0}>
-				<Text>Deposit Panel</Text>
+				<Box padding={1} paddingX={3}>
+					<Text>Deposit Panel</Text>
+				</Box>
 			</TabBox>
 		</Box>
 	);

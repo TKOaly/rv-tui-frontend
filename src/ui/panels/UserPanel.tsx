@@ -36,7 +36,7 @@ const UserPanel = ({ children, ...rest }: OwnProps) => {
 					paddingX={1}
 				>
 					<Text>Balance:</Text>
-					<Text>{user.moneyBalance}</Text>
+					<Text>{user.moneyBalance / 100} €</Text>
 				</BorderBox>
 			</Box>
 		</Box>
