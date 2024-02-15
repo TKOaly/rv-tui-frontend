@@ -1,5 +1,5 @@
 import { Box, useInput } from "ink";
-import { useMenu } from "../../state/focus.js";
+import { useFocusState, useMenu } from "../../state/focus.js";
 import { PrimaryPanel, useNavigation } from "../../state/navigation.js";
 import { Gur6 } from "../prompts/GURPrompts.js";
 import AccountPanel from "./AccountPanel.js";
@@ -10,11 +10,13 @@ import DepositPanel from "./DepositPanel.js";
 const PrimaryPanels = () => {
 	const { primaryPanel, resetNavigation } = useNavigation();
 	const { reset: resetMenu } = useMenu();
+	const { resetFocus } = useFocusState();
 
 	useInput((_, key) => {
-		if (key.escape) {
+		if (key.escape && primaryPanel !== PrimaryPanel.Default) {
 			resetNavigation();
 			resetMenu && resetMenu();
+			resetFocus();
 		}
 	});
 

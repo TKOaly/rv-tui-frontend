@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useDimensions } from "./lib/dimensions.js";
 import type { Cli } from "./rv.js";
 import { cliAtom } from "./state/cli.js";
+import { useFocusState } from "./state/focus.js";
 import { SecondaryPanel, useNavigation } from "./state/navigation.js";
 import { utilsAtom } from "./state/utils.js";
 import CommandBar from "./ui/panels/Bar/Bar.js";
@@ -53,6 +54,7 @@ const App = ({ cli }: { cli: Cli }) => {
 	);
 
 	const { secondaryPanel } = useNavigation();
+	const { barHidden } = useFocusState();
 
 	return (
 		<Box
@@ -66,7 +68,7 @@ const App = ({ cli }: { cli: Cli }) => {
 				<Menu />
 				<PrimaryPanels />
 			</Box>
-			<CommandBar />
+			{!barHidden && <CommandBar />}
 		</Box>
 	);
 };

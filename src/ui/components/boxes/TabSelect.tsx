@@ -10,6 +10,8 @@ export type TabSelectProps = {
 	disabled?: boolean;
 	defaultValue?: string | number;
 	padding?: number;
+	focusId?: string;
+	autoFocus?: boolean;
 } & React.ComponentProps<typeof Box>;
 
 const TabSelect = ({
@@ -18,10 +20,12 @@ const TabSelect = ({
 	title,
 	disabled,
 	defaultValue,
-	padding = 1
+	padding = 1,
+	focusId,
+	autoFocus = false
 }: TabSelectProps) => {
 	const { ref, width } = useMeasurements();
-	const { isFocused } = useFocus();
+	const { isFocused } = useFocus({ autoFocus, id: focusId });
 	const { accentColor } = useStyles();
 
 	const {

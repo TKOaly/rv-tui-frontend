@@ -1,7 +1,6 @@
-import { useAtomValue } from "jotai";
+import { atom, useAtomValue, useSetAtom } from "jotai";
 import { atomWithReset, useResetAtom } from "jotai/utils";
 import { BarVariant } from "../ui/panels/Bar/BarBox.js";
-import { usePartialSetAtom } from "./atomUtils.js";
 
 export enum Bar {
 	Login = 1,
@@ -22,11 +21,21 @@ type BarState = {
 };
 
 const barAtom = atomWithReset<BarState>({
-	bar: Bar.Login
+	bar: Bar.Login,
+	notification: undefined
 });
+
+const barContentAtom = atomWithReset<string>("");
+
+const barEmptyAtom = atom(
+	get => get(barContentAtom) === undefined || get(barContentAtom).length === 0
+);
 
 export const useBar = () => ({
 	...useAtomValue(barAtom),
-	setBar: usePartialSetAtom(barAtom),
-	resetBar: useResetAtom(barAtom)
+	setBar: useSetAtom(barAtom),
+	resetBar: useResetAtom(barAtom),
+	barContent: useAtomValue(barContentAtom),
+	barIsEmpty: useAtomValue(barEmptyAtom),
+	setBarContent: useSetAtom(barContentAtom)
 });

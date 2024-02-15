@@ -8,7 +8,7 @@ import {
 } from "../../lib/select.js";
 import { useBar } from "../../state/bar.js";
 import { useCli } from "../../state/cli.js";
-import { useSetMenuRef } from "../../state/focus.js";
+import { useFocusState, useSetMenuRef } from "../../state/focus.js";
 import { PrimaryPanel, useNavigation } from "../../state/navigation.js";
 import { useStyles } from "../../state/style.js";
 import { useUser } from "../../state/user.js";
@@ -21,7 +21,8 @@ import Select from "../components/Select.js";
 const MenuPanel = () => {
 	const { borderStyle, borderColor } = useStyles();
 	const { primaryPanel, resetNavigation, setNavigation } = useNavigation();
-	const { resetBar } = useBar();
+	const { changeFocus, menuPanelEnabled } = useFocusState();
+	const { resetBar, barIsEmpty } = useBar();
 	const { flags } = useCli();
 	const { exit } = useUtils();
 	const { user, logoutUser } = useUser();
@@ -54,8 +55,7 @@ const MenuPanel = () => {
 				value: "exit",
 				onSelect: () => exit()
 			},
-			{ label: "Debug", value: PrimaryPanel.Debug },
-			{ label: "Gur", value: PrimaryPanel.Gur }
+			{ label: "Debug", value: PrimaryPanel.Debug }
 		]),
 		...includeWhen(user, [
 			{ label: "Bottle Returns", value: PrimaryPanel.Returns },
@@ -85,7 +85,8 @@ const MenuPanel = () => {
 			key.escape &&
 			ref?.current?.focused !== undefined &&
 			options[ref?.current?.focused]?.label === "Logout" &&
-			primaryPanel === PrimaryPanel.Default
+			primaryPanel === PrimaryPanel.Default &&
+			barIsEmpty
 		) {
 			onLogout();
 			ref.current?.reset();
@@ -94,17 +95,18 @@ const MenuPanel = () => {
 
 	// If a panel is selected, navigate to it
 	const onSelect = (option: Option | undefined) => {
-		if (option && option.value in PrimaryPanel) {
+		if (option && option.value in PrimaryPanel && barIsEmpty) {
 			setNavigation({
 				primaryPanel: (option.value as PrimaryPanel) ?? null
 			});
+			changeFocus(option.value as PrimaryPanel);
 		}
 	};
 
 	return (
 		<Box
 			borderStyle={borderStyle}
-			borderColor={borderColor}
+			borderColor={!barIsEmpty || !menuPanelEnabled ? "grey" : borderColor}
 			flexDirection="column"
 			flexShrink={0}
 			paddingX={1}
@@ -115,6 +117,7 @@ const MenuPanel = () => {
 				options={options}
 				selectKey={undefined}
 				onSelect={onSelect}
+				disabled={!menuPanelEnabled || !barIsEmpty}
 			/>
 		</Box>
 	);

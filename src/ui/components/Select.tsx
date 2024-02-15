@@ -16,6 +16,7 @@ type OwnProps = {
 	selectedSymbol?: string;
 	focusedSymbol?: string;
 	gap?: number;
+	disabled?: boolean;
 } & React.ComponentProps<typeof Box>;
 
 /**
@@ -37,6 +38,7 @@ const Select = forwardRef<ReturnType<typeof useSelect>, OwnProps>(
 			selectedSymbol = ">",
 			focusedSymbol = "-",
 			gap = 1,
+			disabled,
 			...rest
 		},
 		ref
@@ -54,6 +56,7 @@ const Select = forwardRef<ReturnType<typeof useSelect>, OwnProps>(
 
 		// Inputs for controlling the selection
 		useInput((_, key) => {
+			if (disabled) return;
 			selectKey && key[selectKey] && select();
 			key[navigationKeys.up] && previous();
 			key[navigationKeys.down] && next();
@@ -90,7 +93,7 @@ const Select = forwardRef<ReturnType<typeof useSelect>, OwnProps>(
 						<Text
 							key={index}
 							color={
-								focused === index
+								focused === index && !disabled
 									? "whiteBright"
 									: selected === index && option.type !== "action"
 									? accentColor
@@ -102,7 +105,7 @@ const Select = forwardRef<ReturnType<typeof useSelect>, OwnProps>(
 						<Text
 							bold={focused === index}
 							color={
-								focused === index
+								focused === index && !disabled
 									? "whiteBright"
 									: selected === index && option.type !== "action"
 									? accentColor

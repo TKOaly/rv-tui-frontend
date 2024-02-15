@@ -52,13 +52,14 @@ const BarBox = ({ variant, children, ...rest }: BarBoxProps) => {
 			overflow="hidden"
 			borderColor={borderColor()}
 			columnGap={1}
+			paddingX={1}
 			{...rest}
 		>
-			{variant === "error" && <Text color="redBright"> ✘</Text>}
-			{variant === "success" && <Text color="greenBright"> ✔</Text>}
-			{variant === "warning" && <Text color="yellowBright"> ⚠</Text>}
-			{variant === "question" && <Text color="cyanBright"> ?</Text>}
-			{variant === "info" && <Text color="blueBright"> i</Text>}
+			{variant === "error" && <Text color="redBright">✘</Text>}
+			{variant === "success" && <Text color="greenBright">✔</Text>}
+			{variant === "warning" && <Text color="yellowBright">⚠</Text>}
+			{variant === "question" && <Text color="cyanBright">?</Text>}
+			{variant === "info" && <Text color="blueBright">i</Text>}
 			<Box flexDirection="row" justifyContent="space-between">
 				{children}
 			</Box>

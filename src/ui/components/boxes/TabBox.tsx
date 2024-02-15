@@ -13,6 +13,8 @@ const TabBox = ({
 	flexDirection,
 	flexWrap,
 	defaultValue,
+	focusId,
+	autoFocus,
 	...rest
 }: OwnProps) => {
 	const { ref, height } = useMeasurements();
@@ -24,6 +26,8 @@ const TabBox = ({
 				onChange={onChange}
 				defaultValue={defaultValue}
 				title={title}
+				focusId={focusId}
+				autoFocus={autoFocus}
 			/>
 			<BorderBox
 				width={"100%"}

@@ -14,7 +14,7 @@ enum BarState {
 
 const LoginBar = () => {
 	const { loginUser } = useUser();
-	const { setBar } = useBar();
+	const { setBar, setBarContent } = useBar();
 
 	const [activeInput, setActiveInput] = useState(BarState.userName);
 	const [username, setUsername] = useState<string>("");
@@ -26,16 +26,19 @@ const LoginBar = () => {
 			{activeInput === BarState.userName && (
 				<TextInput
 					placeholder="Type username:"
+					onChange={content => setBarContent(content)}
 					onSubmit={username => {
 						if (username === "") return;
 						setUsername(username);
 						setActiveInput(BarState.password);
+						setBarContent("");
 					}}
 				/>
 			)}
 			{activeInput === BarState.password && (
 				<PasswordInput
 					placeholder="Type password:"
+					onChange={content => setBarContent(content)}
 					onSubmit={async password => {
 						if (password === "") return;
 						try {
@@ -56,6 +59,7 @@ const LoginBar = () => {
 							}, 3000);
 						} finally {
 							setUsername("");
+							setBarContent("");
 						}
 					}}
 				/>
