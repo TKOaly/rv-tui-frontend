@@ -77,7 +77,7 @@ const Barcode = ({
 				</Text>
 			))}
 
-			{numbers && (
+			{numbers && scale === 1 && (
 				// Bottom part of the barcode (numberline)
 				<Text backgroundColor={background} color={foreground} {...rest}>
 					{" ".repeat(padding - 2) +

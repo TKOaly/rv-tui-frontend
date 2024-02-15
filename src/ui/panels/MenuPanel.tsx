@@ -1,5 +1,5 @@
 import { Box, useInput } from "ink";
-import { includeWhen, includeWhenElse } from "../../lib/menuUtils.js";
+import { includeWhen, includeWhenElse } from "../../lib/menu.js";
 import {
 	Option,
 	Options,
