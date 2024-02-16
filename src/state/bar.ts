@@ -8,9 +8,6 @@ export enum Bar {
 	Hidden = 3
 }
 
-/**
- * The logged in user
- */
 type BarState = {
 	bar: Bar;
 	notification?: {
@@ -20,13 +17,21 @@ type BarState = {
 	};
 };
 
+/**
+ * Determines which bar is currently displayed
+ * Also contains a possible notification to be displayed in the bar
+ */
 const barAtom = atomWithReset<BarState>({
 	bar: Bar.Login,
 	notification: undefined
 });
 
+// The current content of the bar (read-only)
+// Doesn't control bar content so can only be used to read the current content
+// and determine if the bar is empty
 const barContentAtom = atomWithReset<string>("");
 
+// A helper forwhether the bar is empty
 const barEmptyAtom = atom(
 	get => get(barContentAtom) === undefined || get(barContentAtom).length === 0
 );

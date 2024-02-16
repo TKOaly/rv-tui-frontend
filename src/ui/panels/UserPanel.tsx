@@ -1,6 +1,8 @@
 import { Box, Text } from "ink";
+import { usePurchases } from "../../state/purchases.js";
 import { useStyles } from "../../state/style.js";
 import { useUser } from "../../state/user.js";
+import Receipt from "../components/Receipt.js";
 import BorderBox from "../components/boxes/BorderBox.js";
 
 type OwnProps = {} & React.ComponentProps<typeof BorderBox>;
@@ -8,6 +10,7 @@ type OwnProps = {} & React.ComponentProps<typeof BorderBox>;
 const UserPanel = ({ children, ...rest }: OwnProps) => {
 	const styles = useStyles();
 	const { user } = useUser();
+	const { recentPurchases } = usePurchases();
 
 	if (!user) return null;
 
@@ -27,6 +30,7 @@ const UserPanel = ({ children, ...rest }: OwnProps) => {
 				<Text>Hello {user.username}!</Text>
 				<Text>-----------------------</Text>
 			</Box>
+			<Receipt purchases={recentPurchases} user={user} />
 			<Box flexDirection="column-reverse" width={"100%"}>
 				<BorderBox
 					alignSelf="flex-start"
@@ -36,7 +40,7 @@ const UserPanel = ({ children, ...rest }: OwnProps) => {
 					paddingX={1}
 				>
 					<Text>Balance:</Text>
-					<Text>{user.moneyBalance / 100} €</Text>
+					<Text>{user.moneyBalance / 100}</Text>
 				</BorderBox>
 			</Box>
 		</Box>

@@ -2,6 +2,7 @@ import { PasswordInput, TextInput } from "@inkjs/ui";
 import { Text } from "ink";
 import { useState } from "react";
 import { Bar, useBar } from "../../../state/bar.js";
+import { useInventory } from "../../../state/inventory.js";
 import { useUser } from "../../../state/user.js";
 import BarBox, { BarVariant } from "./BarBox.js";
 
@@ -20,6 +21,7 @@ const LoginBar = () => {
 	const [username, setUsername] = useState<string>("");
 	const [barVariant, setBarVariant] = useState<BarVariant>("normal");
 	const [error, setError] = useState("");
+	const { fetchInventory } = useInventory();
 
 	return (
 		<BarBox variant={barVariant}>
@@ -45,6 +47,7 @@ const LoginBar = () => {
 							await loginUser({ username, password });
 							setActiveInput(BarState.userName);
 							setBar({ bar: Bar.Barcode });
+							fetchInventory();
 						} catch (error: any) {
 							setError(
 								error.message === "Unauthorized"

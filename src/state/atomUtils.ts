@@ -6,6 +6,10 @@ import { atom, useSetAtom } from "jotai";
  * to update only the given properties of the atom while keeping the others intact.
  * @param atomToSet any WritableAtom
  * @returns a read-only atom
+ * @example
+ * const userAtom = atom({ name: "John", age: 30 });
+ * const setUserAtom = useSetAtom(partialSetAtom(userAtom));
+ * setUserAtom({ name: "Jane" }); // { name: "Jane", age: 30 }
  */
 const partialSetAtom = <T>(
 	atomToSet: WritableAtom<T, [T & Partial<T>], unknown>
@@ -20,6 +24,10 @@ const partialSetAtom = <T>(
  * allowing to update only the given properties of the atom while keeping the others intact.
  * @param atom any WritableAtom
  * @returns an atom set function
+ * @example
+ * const userAtom = atom({ name: "John", age: 30 });
+ * const setUserAtom = usePartialSetAtom(userAtom);
+ * setUserAtom({ name: "Jane" }); // { name: "Jane", age: 30 }
  */
 export const usePartialSetAtom = <T>(
 	atom: WritableAtom<T, [T & Partial<T>], unknown>

@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import { useDimensions } from "./lib/dimensions.js";
 import type { Cli } from "./rv.js";
 import { cliAtom } from "./state/cli.js";
-import { useFocusState } from "./state/focus.js";
+import { usePanelFocusManager } from "./state/focus.js";
+import { useInventory } from "./state/inventory.js";
 import { SecondaryPanel, useNavigation } from "./state/navigation.js";
+import { useAccessToken } from "./state/user.js";
 import { utilsAtom } from "./state/utils.js";
 import CommandBar from "./ui/panels/Bar/Bar.js";
 import Menu from "./ui/panels/MenuPanel.js";
@@ -27,8 +29,7 @@ const App = ({ cli }: { cli: Cli }) => {
 	const {
 		dimensions: dimensionsMode,
 		width: staticWidth,
-		height: staticHeight,
-		debug
+		height: staticHeight
 	} = cli.flags;
 
 	// Get the initial dimensions of the terminal
@@ -48,13 +49,20 @@ const App = ({ cli }: { cli: Cli }) => {
 	 * Hook returns a reactive width and height if dimensionsMode is "dynamic"
 	 */
 	const { width, height } = useDimensions(
-		dimensionsMode === "static" || debug ? staticWidth ?? 100 : initialWidth,
-		dimensionsMode === "static" || debug ? staticHeight ?? 28 : initialHeight,
+		dimensionsMode === "static" ? staticWidth ?? 100 : initialWidth,
+		dimensionsMode === "static" ? staticHeight ?? 28 : initialHeight,
 		dimensionsMode
 	);
 
 	const { secondaryPanel } = useNavigation();
-	const { barHidden } = useFocusState();
+	const { barHidden } = usePanelFocusManager();
+
+	const accessToken = useAccessToken();
+	const { fetchInventory } = useInventory();
+	useEffect(() => {
+		if (!accessToken) return;
+		fetchInventory();
+	}, [accessToken]);
 
 	return (
 		<Box

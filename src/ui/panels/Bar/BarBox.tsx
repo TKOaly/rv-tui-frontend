@@ -1,4 +1,5 @@
 import { Box, Text } from "ink";
+import { usePanelFocusManager } from "../../../state/focus.js";
 import { useStyles } from "../../../state/style.js";
 import BorderBox from "../../components/boxes/BorderBox.js";
 
@@ -21,6 +22,7 @@ type BarBoxProps = {
 
 const BarBox = ({ variant, children, ...rest }: BarBoxProps) => {
 	const { borderColor: defaultBorderColor } = useStyles();
+	const { barEnabled } = usePanelFocusManager();
 
 	const borderColor = () => {
 		switch (variant) {
@@ -35,11 +37,11 @@ const BarBox = ({ variant, children, ...rest }: BarBoxProps) => {
 			case "warning":
 				return "yellow";
 			case "default":
-				return defaultBorderColor;
+				return barEnabled ? defaultBorderColor : "grey";
 			case "normal":
-				return defaultBorderColor;
+				return barEnabled ? defaultBorderColor : "grey";
 			default:
-				return defaultBorderColor;
+				return barEnabled ? defaultBorderColor : "grey";
 		}
 	};
 

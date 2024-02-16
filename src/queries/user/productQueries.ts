@@ -33,7 +33,7 @@ export const buyProduct = async (
 	return res.data;
 };
 
-type AllProductsResponse = [
+export type AllProductsResponse = [
 	{
 		barcode: string;
 		name: string;

@@ -27,7 +27,11 @@ type Flags = {
 export type Cli = Result<Flags>;
 
 const cli = meow(
-	`
+	`╭───────╮╭──╮  ╭──╮  
+│  ───  ││  ╰╮╭╯  │  
+│ ╭─╮ ╭─╯╰╮  ╰╯  ╭╯        
+╰─╯ ╰─╯   ╰──────╯         
+
 TKO-äly ry RV
 
 Usage

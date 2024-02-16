@@ -8,7 +8,7 @@ import {
 } from "../../lib/select.js";
 import { useBar } from "../../state/bar.js";
 import { useCli } from "../../state/cli.js";
-import { useFocusState, useSetMenuRef } from "../../state/focus.js";
+import { usePanelFocusManager, useSetMenuRef } from "../../state/focus.js";
 import { PrimaryPanel, useNavigation } from "../../state/navigation.js";
 import { useStyles } from "../../state/style.js";
 import { useUser } from "../../state/user.js";
@@ -21,7 +21,8 @@ import Select from "../components/Select.js";
 const MenuPanel = () => {
 	const { borderStyle, borderColor } = useStyles();
 	const { primaryPanel, resetNavigation, setNavigation } = useNavigation();
-	const { changeFocus, menuPanelEnabled } = useFocusState();
+	const { changeFocusConfig: changeFocus, menuPanelEnabled } =
+		usePanelFocusManager();
 	const { resetBar, barIsEmpty } = useBar();
 	const { flags } = useCli();
 	const { exit } = useUtils();
@@ -59,7 +60,7 @@ const MenuPanel = () => {
 		]),
 		...includeWhen(user, [
 			{ label: "Bottle Returns", value: PrimaryPanel.Returns },
-			{ label: "Buy Coffee", value: PrimaryPanel.Coffee },
+			{ label: "Coffee &\nOther Drinks", value: PrimaryPanel.Coffee },
 			{ label: "Deposit", value: PrimaryPanel.Deposit },
 			{ label: "Barcodes", value: PrimaryPanel.Barcodes },
 			{ label: "Check Price &\nList Products", value: PrimaryPanel.PriceCheck }

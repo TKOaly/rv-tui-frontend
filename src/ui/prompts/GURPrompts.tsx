@@ -150,21 +150,21 @@ export const Gur5 = () => (
 );
 
 export const Gur6 = () => (
-	<Box width={33} height={7} flexDirection="column">
+	<Box width={35} height={7} flexDirection="column">
 		<Text>
-			<Text color={white}>{"                           ╭─╮╭─╮"}</Text>
+			<Text color={white}>{"                           ╭──╮╭──╮"}</Text>
 		</Text>
 		<Text>
 			<Text color={red}>{"╭──────╮"}</Text>
 			<Text color={green}>{"╭──╮  ╭──╮"}</Text>
 			<Text color={blue}>{"╭───────╮"}</Text>
-			<Text color={white}>{"│ │╰─╮"}</Text>
+			<Text color={white}>{"│  │╰──╮"}</Text>
 		</Text>
 		<Text>
 			<Text color={red}>{"│  ╭───┤"}</Text>
 			<Text color={green}>{"│  │  │  │"}</Text>
 			<Text color={blue}>{"│  ───  │"}</Text>
-			<Text color={white}>{"╰─╯╰─╯"}</Text>
+			<Text color={white}>{"╰──╯╰──╯"}</Text>
 		</Text>
 		<Text>
 			<Text color={red}>{"│  ╰─  │"}</Text>

@@ -43,7 +43,6 @@ export enum SecondaryPanel {
 export type NavigationState = {
 	primaryPanel: PrimaryPanel | null;
 	secondaryPanel: SecondaryPanel | null;
-	showSecondary: boolean;
 };
 
 /**
@@ -51,8 +50,7 @@ export type NavigationState = {
  */
 const navigationAtom = atomWithReset<NavigationState>({
 	primaryPanel: PrimaryPanel.Default,
-	secondaryPanel: SecondaryPanel.User,
-	showSecondary: true
+	secondaryPanel: SecondaryPanel.User
 });
 
 /**
