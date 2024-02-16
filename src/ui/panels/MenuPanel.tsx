@@ -10,6 +10,7 @@ import { useBar } from "../../state/bar.js";
 import { useCli } from "../../state/cli.js";
 import { usePanelFocusManager, useSetMenuRef } from "../../state/focus.js";
 import { PrimaryPanel, useNavigation } from "../../state/navigation.js";
+import { usePurchases } from "../../state/purchases.js";
 import { useStyles } from "../../state/style.js";
 import { useUser } from "../../state/user.js";
 import { useUtils } from "../../state/utils.js";
@@ -27,11 +28,13 @@ const MenuPanel = () => {
 	const { flags } = useCli();
 	const { exit } = useUtils();
 	const { user, logoutUser } = useUser();
+	const { clearRecentPurchases } = usePurchases();
 
 	const onLogout = () => {
 		logoutUser();
 		resetBar();
 		resetNavigation();
+		clearRecentPurchases();
 	};
 
 	// Options for the main navigation

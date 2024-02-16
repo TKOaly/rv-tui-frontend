@@ -61,7 +61,7 @@ const App = ({ cli }: { cli: Cli }) => {
 	const { fetchInventory } = useInventory();
 	useEffect(() => {
 		if (!accessToken) return;
-		fetchInventory();
+		fetchInventory(accessToken);
 	}, [accessToken]);
 
 	return (

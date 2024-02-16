@@ -60,6 +60,8 @@ const Receipt = ({
 		total: number;
 		quantity: number | undefined;
 		pricePer: number | undefined;
+		purchaseId: number;
+		time: string;
 	};
 
 	const mappedPurchases = Object.values(purchases)
@@ -82,16 +84,35 @@ const Receipt = ({
 				name: productPurchases[0]?.name,
 				total,
 				quantity,
-				pricePer
+				pricePer,
+				purchaseId: productPurchases[0]?.purchaseId,
+				time: productPurchases[0]?.time
 			};
 		})
 		.filter(purchase => purchase.name !== undefined) as MappedPurchase[];
+
+	const date = new Date(mappedPurchases[0]?.time || "01 Jan 1970 00:00:00 GMT");
 
 	return (
 		<Box flexDirection="column" width={width}>
 			<Text {...style}>{" ".repeat(width)}</Text>
 			<Text {...style}>{padStringCentered("RUOKAVÄLITYS")}</Text>
 			<Text {...style}>{padStringCentered("DK115, Gurula")}</Text>
+			<Text {...style}>
+				{padStringSpaceBetween(
+					"P" + (mappedPurchases[0]?.purchaseId ?? "1234"),
+					"" +
+						date.getUTCDate().toString() +
+						"." +
+						date.getUTCMonth().toString() +
+						"." +
+						date.getUTCFullYear().toString().slice(2, 4) +
+						" " +
+						date.getUTCHours().toString() +
+						":" +
+						date.getUTCMinutes().toString()
+				)}
+			</Text>
 			<Text {...style}>{" ".repeat(width)}</Text>
 			{mappedPurchases.map((purchase, index) => (
 				<Text {...style} key={index}>

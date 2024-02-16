@@ -52,8 +52,8 @@ rv
 The project uses [`ink`](https://github.com/vadimdemedes/ink) to turn React JSX into a terminal UI code.
 Styling and layout are unconventional but hooks and other main react features work as normal.
 
-Local state management should be kept at a minimum for maintainability and panels/views/layouts should mosty handle their own state.
-[`Jotai`](https://jotai.org/docs/core/use-atom) is used for atomic states where abolutely necessary. [`React Query`](https://tanstack.com/query/latest/docs/framework/react/overview#enough-talk-show-me-some-code-already) should be used to handle server state and a lot of the stage management can be relegated to it.
+Local state management should be kept at a minimum for maintainability and panels/views/layouts should mosty handle their own state when they can.
+[`Jotai`](https://jotai.org/docs/core/use-atom) is used for atomic states where necessary. [`React Query`](https://tanstack.com/query/latest/docs/framework/react/overview#enough-talk-show-me-some-code-already) should be used to handle server state and a lot of the stage management can be relegated to it.
 
 Good API documentation can be built from the backend's OpenApi spec e.g. with an IDE extension.
 
@@ -87,7 +87,7 @@ ASCII art etc. for backgrounds, debt nag prompts or easter eggs.
 
 ### state
 
-Contains application state that has to be handled locally. Jotai is used to hopefully keep the state simple and avoid larger and complicated state structures. Local state management is mandatory for e.g. navigation but all state related to user or product data should be handled in [queries](#queries) or inside their respective UI panel components.
+Contains application state that has to be handled locally. Jotai is used to hopefully keep the state simple and avoid larger and complicated state structures. Local state management is mandatory for e.g. navigation and other data as many normal querying methods can't be used as the app is not running in the browser.
 
 ### queries
 

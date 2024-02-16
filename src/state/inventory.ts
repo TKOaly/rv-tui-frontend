@@ -4,18 +4,16 @@ import {
 	AllProductsResponse,
 	getAllProducts
 } from "../queries/user/productQueries.js";
-import { useAccessToken } from "./user.js";
 
 export const inventoryAtom = atom<AllProductsResponse | undefined>(undefined);
 
 const useFetchInventory = () => {
-	const accessToken = useAccessToken();
 	const setInventory = useSetAtom(inventoryAtom);
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [error, setError] = useState<Error | undefined>(undefined);
 	return {
-		fetchInventory: async () => {
+		fetchInventory: async (accessToken: string) => {
 			if (!accessToken) {
 				console.error("No access token");
 				return;

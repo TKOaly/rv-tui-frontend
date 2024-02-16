@@ -32,7 +32,6 @@ const addRecentPurhaseAtom = atom(
 		}
 	) => {
 		const recentPurchases = get(recentPurchasesAtom);
-		console.dir(inventory);
 		const productName =
 			inventory?.find(product => product.barcode === barcode)?.name ||
 			"Product";
@@ -40,7 +39,7 @@ const addRecentPurhaseAtom = atom(
 			set(recentPurchasesAtom, {
 				...recentPurchases,
 				[barcode]: [
-					...(recentPurchases[productName] || []),
+					...(recentPurchases[barcode] || []),
 					...purchases.map(purchase => ({ ...purchase, name: productName }))
 				]
 			});
