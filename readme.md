@@ -1,6 +1,6 @@
 # rv-tui-frontend
 
-![rv](./rv.png)
+![rv](https://github.com/TKOaly/rv-tui-frontend/assets/56773501/6b1d0e79-0164-4929-bb5f-47bca737a2a0)
 
 ## Setup
 
