@@ -2,7 +2,7 @@
 Name=Ruokavälitys
 GenericName=RV
 Comment=TKO-äly Ruokavälitys
-Exec=env RV_BACKEND_URL=http://localhost:8080 kitty --start-as fullscreen rv
+Exec=env RV_BACKEND_URL=http://localhost:4040 kitty --start-as fullscreen rv
 Terminal=false
 Type=Application
 Categories=ConsoleOnly;System;
